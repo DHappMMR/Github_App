@@ -13,6 +13,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private Button confirm;
+    private Button impressum;
     public EditText editText;
     public static String StockName;
 
@@ -23,20 +24,34 @@ public class MainActivity extends AppCompatActivity {
 
        confirm = findViewById(R.id.ButtonConfirm);
        editText = findViewById(R.id.stockNameEditView);
+       impressum = findViewById(R.id.goToImpressum);
+
        confirm.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
                StockName = editText.getText().toString();
-               System.out.println(StockName);
-               changeActivity();
+               changeActivityToSSO();
            }
        });
+
+       impressum.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               changeActivityToI();
+           }
+       });
+
     }
 
-     private void changeActivity() {
+     private void changeActivityToSSO() {
         Intent intent = new Intent(this, SingleStockOverview.class);
         startActivity(intent);
      }
+
+    private void changeActivityToI() {
+        Intent intent = new Intent(this, Impressum.class);
+        startActivity(intent);
+    }
 
 
 
