@@ -1,58 +1,66 @@
 package com.example.dhapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputFilter;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button confirm;
-    private Button impressum;
-    public EditText editText;
-    public static String StockName;
+    public TextView showStockName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       confirm = findViewById(R.id.ButtonConfirm);
-       editText = findViewById(R.id.stockNameEditView);
-       impressum = findViewById(R.id.goToImpressum);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-       confirm.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               StockName = editText.getText().toString();
-               changeActivityToSSO();
-           }
-       });
+        showStockName = findViewById(R.id.ShowStockName);
 
-       impressum.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               changeActivityToI();
-           }
-       });
+        bottomNav.setSelectedItemId(R.id.nav_search);
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchFragment()).commit();
+        }
 
     }
 
-     private void changeActivityToSSO() {
+
+  /*  public void changeActivityToSSO() {
+        //StockName = editText.getText().toString();
         Intent intent = new Intent(this, SingleStockOverview.class);
         startActivity(intent);
-     }
+    }*/
 
-    private void changeActivityToI() {
-        Intent intent = new Intent(this, Impressum.class);
-        startActivity(intent);
-    }
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment selectedFragment = null;
 
+            switch (item.getItemId()) {
+                case R.id.nav_depot:
+                    selectedFragment = new DepotFragment();
+                    break;
+                case R.id.nav_search:
+                    selectedFragment = new SearchFragment();
+                    break;
+                case R.id.nav_impressum:
+                    selectedFragment = new ImpressumFragment();
+                    break;
+            }
 
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+            return true;
+        }
+    };
 
 }
