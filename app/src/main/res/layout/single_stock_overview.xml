@@ -10,12 +10,24 @@
         android:id="@+id/ShowStockName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
+        android:text="Stock ISIN"
+        android:textColor="#2196F3"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/Puffer"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ShowClearName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:text="Stock Name"
         android:textColor="#2196F3"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/Puffer"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -166,7 +178,21 @@
         android:layout_marginBottom="50dp"
         android:backgroundTint="#2196F3"
         android:text="+"
+        android:background="@drawable/roundedbutton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/Puffer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="|"
+        android:textColor="#2196F3"
+        android:textSize="24sp"
+        android:onClick="addToDepotMethod"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
