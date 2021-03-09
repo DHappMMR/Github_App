@@ -6,160 +6,167 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="24dp"
+    <TextView
+        android:id="@+id/ShowStockName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Stock Name"
+        android:textColor="#2196F3"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center">
 
-            <TextView
-                android:id="@+id/ShowStockName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Stock Name"
-                android:textColor="#2196F3"
-                android:textSize="24sp" />
-        </TableRow>
+    <TextView
+        android:id="@+id/CurrentStockValueString"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Current Stock Value"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ShowStockName" />
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:stretchColumns="1">
+    <TextView
+        android:id="@+id/CurrentStockValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="15,30 €"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ShowStockName" />
 
-            <TextView
-                android:id="@+id/CurrentStockValueString"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Current Stock Value" />
+    <TextView
+        android:id="@+id/MarketCapString"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Market Capitalization"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CurrentStockValueString" />
 
-            <TextView
-                android:id="@+id/CurrentStockValue"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:text="15,30 €" />
-        </TableRow>
+    <TextView
+        android:id="@+id/MarketCapStringValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="83.291 Mio €"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CurrentStockValue" />
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:stretchColumns="1">
+    <TextView
+        android:id="@+id/Change24HoursString"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Change 24 hours"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MarketCapString" />
 
-            <TextView
-                android:id="@+id/MarketCapString"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Market Capitalization" />
+    <TextView
+        android:id="@+id/Change24HoursValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="-2,57 %"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MarketCapStringValue" />
 
-            <TextView
-                android:id="@+id/MarketCapStringValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="83.291 Mio €" />
-        </TableRow>
+    <TextView
+        android:id="@+id/ValueDString"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Value D"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Change24HoursString" />
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:stretchColumns="1">
+    <TextView
+        android:id="@+id/ValueD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="---"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ValueF" />
+-->
+    <TextView
+        android:id="@+id/ValueEString"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Value E"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ValueDString" />
 
-            <TextView
-                android:id="@+id/Change24HoursString"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Change 24 hours" />
+    <TextView
+        android:id="@+id/ValueE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="---"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Change24HoursValue" />
 
-            <TextView
-                android:id="@+id/Change24HoursValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="-2,57 %" />
-        </TableRow>
+    <TextView
+        android:id="@+id/ValueFString"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Value F"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ValueEString" />
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:stretchColumns="1">
+    <TextView
+        android:id="@+id/ValueF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="---"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ValueE" />
 
-            <TextView
-                android:id="@+id/ValueDString"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Value D" />
 
-            <TextView
-                android:id="@+id/ValueD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="---" />
-        </TableRow>
+    <Button
+        android:id="@+id/BackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="#2196F3"
+        android:onClick="goBack"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:stretchColumns="1">
+    <Button
+        android:id="@+id/addToDepot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="#2196F3"
+        android:text="+"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/ValueEString"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Value E" />
-
-            <TextView
-                android:id="@+id/ValueE"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="---" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:stretchColumns="1">
-
-            <TextView
-                android:id="@+id/ValueFString"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Value F" />
-
-            <TextView
-                android:id="@+id/ValueF"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="---" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <Button
-                android:id="@+id/BackButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#2196F3"
-                android:onClick="goBack"
-                android:text="Back" />
-        </TableRow>
-
-    </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
