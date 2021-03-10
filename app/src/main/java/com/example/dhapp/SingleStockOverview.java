@@ -13,9 +13,28 @@ public class SingleStockOverview extends AppCompatActivity {
 
     private TextView showStockName;
 
+    TextView StockName;
+    TextView ISIN;
+    TextView DEPOTvalue;
+    TextView DEPOTmarketcap;
+    TextView DEPOTvalueD;
+    TextView DEPOTvalueE;
+    TextView DEPOTvalueF;
+
     String ClearName;
     Double value;
-    Double arketCap
+    Double marketCap;
+    Double valueD;
+    Double valueE;
+    Double valueF;
+
+    String StringStockName;
+    String StringISIN;
+    String StringDEPOTValue;
+    String StringDEPOTcap;
+    String StringDEPOTvalueD;
+    String StringDEPOTvalueE;
+    String StringDEPOTvalueF;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,7 +46,28 @@ public class SingleStockOverview extends AppCompatActivity {
         showStockName= findViewById(R.id.ShowStockName);
         showStockName.setText(name);
 
+        StockName = findViewById(R.id.ShowClearName);
+        ISIN = findViewById(R.id.ShowStockName);
+        DEPOTvalue = findViewById(R.id.CurrentStockValue);
+        DEPOTmarketcap = findViewById(R.id.MarketCapStringValue);
+        DEPOTvalueD = findViewById(R.id.ValueD);
+        DEPOTvalueE = findViewById(R.id.ValueE);
+        DEPOTvalueF = findViewById(R.id.ValueF);
 
+        StockName.setText(ClearName);
+        DEPOTvalue =
+        DEPOTmarketcap =
+        DEPOTvalueD =
+        DEPOTvalueE =
+        DEPOTvalueF =
+
+      /*  StringDEPOTvalueF = DEPOTvalueF.getText().toString();
+        StringStockName = StockName.getText().toString();
+        StringISIN = ISIN.getText().toString();
+        StringDEPOTValue = DEPOTvalue.getText().toString();
+        StringDEPOTcap = DEPOTmarketcap.getText().toString();
+        StringDEPOTvalueD = DEPOTvalueD.getText().toString();
+        StringDEPOTvalueE = DEPOTvalueE.getText().toString(); */
     }
 
     public void goBack(View view) {
