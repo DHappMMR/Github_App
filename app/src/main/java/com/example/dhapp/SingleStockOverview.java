@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.w3c.dom.Text;
 
 public class SingleStockOverview extends AppCompatActivity {
-
+    //merge-Test
     private TextView showStockName;
 
     TextView StockName;
