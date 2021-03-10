@@ -13,6 +13,10 @@ public class SingleStockOverview extends AppCompatActivity {
 
     private TextView showStockName;
 
+    String ClearName;
+    Double value;
+    Double arketCap
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,11 +26,15 @@ public class SingleStockOverview extends AppCompatActivity {
 
         showStockName= findViewById(R.id.ShowStockName);
         showStockName.setText(name);
+
+
     }
 
     public void goBack(View view) {
         finish();
     }
+
+
 
     public void addToDepotMethod(View view) {
 
