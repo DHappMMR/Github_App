@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SingleStockOverview"/>
+        <activity android:name=".Impressum"/>
     </application>
 
 </manifest>
