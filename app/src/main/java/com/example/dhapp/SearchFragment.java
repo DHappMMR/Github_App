@@ -25,7 +25,7 @@ import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-public class SearchFragment extends Fragment implements View.OnClickListener{
+public class SearchFragment extends Fragment{
 
     private static final String accessKEY="86a7719f8f68bb10f9cbef8614745331";
 
@@ -45,12 +45,17 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
 
         confirm = (Button) view.findViewById(R.id.ButtonConfirm);
-        confirm.setOnClickListener(this);
-
         stockInput =  (EditText) view.findViewById(R.id.stockNameEditView);
+        confirm.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), SingleStockOverview.class);
+            intent.putExtra("name",stockInput.getText().toString());
+            startActivity(intent);
+        });
+;
+
     }
 
-    @Override
+    /**@Override
     public void onClick(View v){
         try{
             String input = stockInput.getText().toString();
@@ -59,6 +64,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
             e.printStackTrace();
         }
 
-    }
+    }**/
 }
 

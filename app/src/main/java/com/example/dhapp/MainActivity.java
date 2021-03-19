@@ -93,8 +93,7 @@ public class MainActivity extends AppCompatActivity  {
         JSONObject answer = null;
         ISIN.toUpperCase();
 
-        url+=ISIN;
-        link = new URL(url);
+        link = new URL(url+ISIN);
         conn = (HttpURLConnection) link.openConnection();
         conn.setRequestMethod("GET");
 
