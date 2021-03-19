@@ -2,6 +2,8 @@ package com.example.dhapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +14,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class SearchFragment extends Fragment {
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
+import java.nio.charset.Charset;
+
+public class SearchFragment extends Fragment implements View.OnClickListener{
+
+    private static final String accessKEY="86a7719f8f68bb10f9cbef8614745331";
+
+    private static String stock = "";
+    private static String apiURL = "http://api.marketstack.com/v1/eod/?access_key=86a7719f8f68bb10f9cbef8614745331&symbols=" + stock;
+
+    private Button confirm;
+    EditText stockInput;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -24,13 +44,21 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button confirm = (Button) view.findViewById(R.id.ButtonConfirm);
+        confirm = (Button) view.findViewById(R.id.ButtonConfirm);
+        confirm.setOnClickListener(this);
 
-        EditText name =  view.findViewById(R.id.stockNameEditView);
-        confirm.setOnClickListener(v -> {
-            Intent intent = new Intent(requireContext(), SingleStockOverview.class);
-            intent.putExtra("name",name.getText().toString());
-            startActivity(intent);
-        });
+        stockInput =  (EditText) view.findViewById(R.id.stockNameEditView);
+    }
+
+    @Override
+    public void onClick(View v){
+        try{
+            String input = stockInput.getText().toString();
+            JSONObject answer = ((MainActivity)getActivity()).getStockInformation(input);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }
+
