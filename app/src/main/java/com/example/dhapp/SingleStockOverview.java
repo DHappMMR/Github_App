@@ -55,19 +55,19 @@ public class SingleStockOverview extends AppCompatActivity {
         DEPOTvalueF = findViewById(R.id.ValueF);
 
         StockName.setText(ClearName);
-        DEPOTvalue.setText(value.toString());
+        /*DEPOTvalue.setText(value.toString());
         DEPOTmarketcap.setText(marketCap.toString());
         DEPOTvalueD.setText(valueD.toString());
         DEPOTvalueE.setText(valueE.toString());
-        DEPOTvalueF.setText(valueF.toString());
+        DEPOTvalueF.setText(valueF.toString());*/
 
-      /*  StringDEPOTvalueF = DEPOTvalueF.getText().toString();
+        StringDEPOTvalueF = DEPOTvalueF.getText().toString();
         StringStockName = StockName.getText().toString();
         StringISIN = ISIN.getText().toString();
         StringDEPOTValue = DEPOTvalue.getText().toString();
         StringDEPOTcap = DEPOTmarketcap.getText().toString();
         StringDEPOTvalueD = DEPOTvalueD.getText().toString();
-        StringDEPOTvalueE = DEPOTvalueE.getText().toString(); */
+        StringDEPOTvalueE = DEPOTvalueE.getText().toString();
     }
 
     public void goBack(View view) {
