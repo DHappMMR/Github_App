@@ -13,28 +13,28 @@ public class SingleStockOverview extends AppCompatActivity {
     //merge-Test
     private TextView showStockName;
 
-    TextView StockName;
-    TextView ISIN;
-    TextView DEPOTvalue;
-    TextView DEPOTmarketcap;
-    TextView DEPOTvalueD;
-    TextView DEPOTvalueE;
-    TextView DEPOTvalueF;
+    static TextView StockName;
+    static TextView ISIN;
+    static TextView DEPOTvalue;
+    static TextView DEPOTmarketcap;
+    static TextView DEPOTvalueD;
+    static TextView DEPOTvalueE;
+    static TextView DEPOTvalueF;
 
-    String ClearName;
-    Double value;
-    Double marketCap;
-    Double valueD;
-    Double valueE;
-    Double valueF;
+    static String ClearName;
+    static Double value;
+    static Double marketCap;
+    static Double valueD;
+    static Double valueE;
+    static Double valueF;
 
-    String StringStockName;
-    String StringISIN;
-    String StringDEPOTValue;
-    String StringDEPOTcap;
-    String StringDEPOTvalueD;
-    String StringDEPOTvalueE;
-    String StringDEPOTvalueF;
+    static String StringStockName;
+    static String StringISIN;
+    static String StringDEPOTValue;
+    static String StringDEPOTcap;
+    static String StringDEPOTvalueD;
+    static String StringDEPOTvalueE;
+    static String StringDEPOTvalueF;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class SingleStockOverview extends AppCompatActivity {
         setContentView(R.layout.single_stock_overview);
 
         String name = getIntent().getStringExtra("name");
+        String open = getIntent().getStringExtra("open");
 
         showStockName= findViewById(R.id.ShowStockName);
         showStockName.setText(name);
@@ -49,6 +50,7 @@ public class SingleStockOverview extends AppCompatActivity {
         StockName = findViewById(R.id.ShowClearName);
         ISIN = findViewById(R.id.ShowStockName);
         DEPOTvalue = findViewById(R.id.CurrentStockValue);
+        DEPOTvalue.setText(open);
         DEPOTmarketcap = findViewById(R.id.MarketCapStringValue);
         DEPOTvalueD = findViewById(R.id.ValueD);
         DEPOTvalueE = findViewById(R.id.ValueE);

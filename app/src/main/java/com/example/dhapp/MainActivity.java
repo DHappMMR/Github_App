@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity  {
     public TextView showStockName;
     private static String stock="";
 
-    private static String url="http://api.marketstack.com/v1/eod?access_key=86a7719f8f68bb10f9cbef8614745331&symbols=";
+    private static String url="http://api.marketstack.com/v1/eod/latest?access_key=86a7719f8f68bb10f9cbef8614745331&symbols=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
