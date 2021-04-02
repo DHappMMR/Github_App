@@ -24,12 +24,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 
 public class SearchFragment extends Fragment{
 
-    private static final String accessKEY="86a7719f8f68bb10f9cbef8614745331";
+    String input;
+    JSONObject answer;
+
+    Intent intent;
 
     String open;
     private static String stock = "";
@@ -51,20 +55,38 @@ public class SearchFragment extends Fragment{
         stockInput =  (EditText) view.findViewById(R.id.stockNameEditView);
         confirm.setOnClickListener(v -> {
             try{
-                String input = stockInput.getText().toString();
-                JSONObject answer = ((MainActivity)getActivity()).getStockInformation(input);
-                JSONArray field = answer.getJSONArray("data");
-                JSONObject data = field.getJSONObject(0);
-                open = data.getString("open").toString();
+                input = stockInput.getText().toString();
+                apiThread thread=new apiThread(input);
+                thread.start();
             }catch (Exception e){
                 e.printStackTrace();
             }
-            Intent intent = new Intent(requireContext(), SingleStockOverview.class);
-            intent.putExtra("name",stockInput.getText().toString());
-            intent.putExtra("open",open);
-            startActivity(intent);
+
+            intent = new Intent(requireContext(), SingleStockOverview.class);
         });
 
+    }
+
+    class apiThread extends Thread{
+        protected String ISIN;
+        public apiThread(String ISIN){
+            this.ISIN=ISIN;
+        }
+
+        @Override
+        public void run(){
+            try{
+                answer = ((MainActivity)getActivity()).getStockInformation(ISIN);
+                JSONArray field = answer.getJSONArray("data");
+                JSONObject data = field.getJSONObject(0);
+                open = data.getString("open").toString();
+                intent.putExtra("name",stockInput.getText().toString());
+                intent.putExtra("open",open);
+                startActivity(intent);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 }
 
