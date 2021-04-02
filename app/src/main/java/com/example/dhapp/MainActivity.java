@@ -38,9 +38,6 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -85,6 +82,7 @@ public class MainActivity extends AppCompatActivity  {
             return true;
         }
     };
+
 
     protected JSONObject getStockInformation(String ISIN) throws Exception {
         URL link = null;
