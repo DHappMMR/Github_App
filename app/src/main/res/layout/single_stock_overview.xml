@@ -8,8 +8,9 @@
 
     <TextView
         android:id="@+id/ShowStockName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="32dp"
+        android:gravity="center"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:text="Stock ISIN"
@@ -20,8 +21,13 @@
 
     <TextView
         android:id="@+id/ShowClearName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeMaxTextSize="100sp"
+        android:autoSizeStepGranularity="2sp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:text="Stock Name"
@@ -69,7 +75,7 @@
         android:layout_gravity="right"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:text="83.291 Mio €"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CurrentStockValue" />
 
@@ -90,73 +96,93 @@
         android:layout_gravity="right"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:text="-2,57 %"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MarketCapStringValue" />
 
     <TextView
-        android:id="@+id/ValueDString"
+        android:id="@+id/Volume"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Value D"
+        android:text="Volume"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Change24HoursString" />
 
     <TextView
-        android:id="@+id/ValueD"
+        android:id="@+id/VolumeValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:text="---"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ValueF" />
--->
-    <TextView
-        android:id="@+id/ValueEString"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Value E"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ValueDString" />
-
-    <TextView
-        android:id="@+id/ValueE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:text="---"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Change24HoursValue" />
 
     <TextView
-        android:id="@+id/ValueFString"
+        android:id="@+id/Highest"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Value F"
+        android:text="Highest Value"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ValueEString" />
+        app:layout_constraintTop_toBottomOf="@+id/Volume" />
 
     <TextView
-        android:id="@+id/ValueF"
+        android:id="@+id/HighestValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:text="---"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ValueE" />
+        app:layout_constraintTop_toBottomOf="@+id/Volume" />
 
+    <TextView
+        android:id="@+id/Lowest"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Lowest Value"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Highest" />
+
+    <TextView
+        android:id="@+id/LowestValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/HighestValue" />
+
+    <TextView
+        android:id="@+id/Date"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Lowest" />
+
+    <TextView
+        android:id="@+id/DateValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LowestValue" />
 
     <Button
         android:id="@+id/BackButton"

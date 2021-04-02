@@ -29,11 +29,10 @@ import java.nio.charset.Charset;
 public class MainActivity extends AppCompatActivity  {
 
 
-    private Button confirm;
     public TextView showStockName;
-    private static String stock="";
-
-    private static String url="http://api.marketstack.com/v1/eod/latest?access_key=86a7719f8f68bb10f9cbef8614745331&symbols=";
+    private String ISIN;
+    private static String url="http://api.marketstack.com/v1/eod?access_key=86a7719f8f68bb10f9cbef8614745331&symbols=";
+    private static String apiURLName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +91,35 @@ public class MainActivity extends AppCompatActivity  {
         ISIN.toUpperCase();
 
         link = new URL(url+ISIN);
+        conn = (HttpURLConnection) link.openConnection();
+        conn.setRequestMethod("GET");
+
+        if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            String errorMessage = "HTTP-Fehler: " + conn.getResponseMessage();
+            throw new Exception(errorMessage);
+        } else{
+            InputStream is = conn.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader reader = new BufferedReader(isr);
+
+            String line = "";
+            while ((line = reader.readLine())!=null){
+                object += line;
+            }
+            answer=parseJSON(object);
+        }
+        conn.disconnect();
+        return answer;
+    }
+
+    protected JSONObject getStockNameInformation(String ISIN) throws Exception {
+        URL link = null;
+        HttpURLConnection conn = null;
+        String object="";
+        JSONObject answer = null;
+
+        apiURLName = "http://api.marketstack.com/v1/tickers/"+ ISIN + "?access_key=86a7719f8f68bb10f9cbef8614745331";
+        link = new URL(apiURLName);
         conn = (HttpURLConnection) link.openConnection();
         conn.setRequestMethod("GET");
 
