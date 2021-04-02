@@ -30,14 +30,17 @@ import java.nio.charset.Charset;
 
 public class SearchFragment extends Fragment{
 
-    String input;
-    JSONObject answer;
-
-    Intent intent;
-
-    String open;
-    private static String stock = "";
-    private static String apiURL = "http://api.marketstack.com/v1/eod/?access_key=86a7719f8f68bb10f9cbef8614745331&symbols=" + stock;
+    private String name;
+    private String input;
+    private Intent intent;
+    private JSONObject answer;
+    private JSONObject stockName;
+    private String open;
+    private String volume;
+    private String yesterday;
+    private String highest;
+    private String lowest;
+    private String date;
 
     private Button confirm;
     EditText stockInput;
@@ -55,8 +58,7 @@ public class SearchFragment extends Fragment{
         stockInput =  (EditText) view.findViewById(R.id.stockNameEditView);
         confirm.setOnClickListener(v -> {
             try{
-                input = stockInput.getText().toString();
-                apiThread thread=new apiThread(input);
+                apiThread thread=new apiThread();
                 thread.start();
             }catch (Exception e){
                 e.printStackTrace();
@@ -67,21 +69,81 @@ public class SearchFragment extends Fragment{
 
     }
 
-    class apiThread extends Thread{
-        protected String ISIN;
-        public apiThread(String ISIN){
-            this.ISIN=ISIN;
+    public static String twentyFourChange(String latest, String yesterday){
+        Double open1 = Double.parseDouble(latest);
+        Double open2 = Double.parseDouble(yesterday);
+        Double twentyFour = 100*(open1/open2-1);
+        return String.format("%.2f", twentyFour);
+    }
+
+    public static String getMarketCap(String volume, String open){
+        Double cap = Double.parseDouble(volume);
+        Double openValue = Double.parseDouble(open);
+        cap = cap*openValue;
+        if (cap > 1000000000){
+            cap = cap/1000000000;
+            return String.format("%.2f", cap) + " Mrd. €";
+        }else{
+            cap = cap/1000000;
+            return String.format("%.2f",cap) + " Mio. €";
         }
+    }
+
+    public static String getVolume(String volume){
+        Double volumeValue = Double.parseDouble(volume);
+        volumeValue=volumeValue/1000000;
+        return String.format("%.2f", volumeValue) + " Mio";
+    }
+
+    public static String getDate(String date){
+        return date.substring(8,10) + "/" + date.substring(5,7) + "/" + date.substring(0,4);
+    }
+
+    class apiThread extends Thread{
 
         @Override
         public void run(){
             try{
-                answer = ((MainActivity)getActivity()).getStockInformation(ISIN);
+                input = stockInput.getText().toString();
+                stockName = ((MainActivity)getActivity()).getStockNameInformation(input);
+                name = stockName.getString("name");
+                System.out.println(name);
+
+                answer = ((MainActivity)getActivity()).getStockInformation(input);
                 JSONArray field = answer.getJSONArray("data");
-                JSONObject data = field.getJSONObject(0);
-                open = data.getString("open").toString();
-                intent.putExtra("name",stockInput.getText().toString());
+                JSONObject latestData = field.getJSONObject(0);
+
+                open = latestData.getString("open");
+                open = String.format("%.2f", Double.parseDouble(open));
+
+                volume = latestData.getString("volume");
+                String marketCapResult = getMarketCap(volume, open);
+
+                JSONObject yesterdayData = field.getJSONObject(1);
+                yesterday = yesterdayData.getString("open");
+                String twentyFourResult = twentyFourChange(open, yesterday);
+
+                volume=getVolume(volume);
+
+                highest = latestData.getString("high");
+                highest = String.format("%.2f", Double.parseDouble(highest));
+
+                lowest = latestData.getString("low");
+                lowest = String.format("%.2f", Double.parseDouble(lowest));
+
+                date = latestData.getString("date");
+                date = getDate(date);
+
+                intent.putExtra("name",name);
+                intent.putExtra("symbol",stockInput.getText().toString());
                 intent.putExtra("open",open);
+                intent.putExtra("marketCap",marketCapResult);
+                intent.putExtra("twentyFour",twentyFourResult);
+                intent.putExtra("volume", volume);
+                intent.putExtra("highest", highest);
+                intent.putExtra("lowest", lowest);
+                intent.putExtra("date", date);
+
                 startActivity(intent);
             }catch (Exception e){
                 e.printStackTrace();
@@ -89,4 +151,6 @@ public class SearchFragment extends Fragment{
         }
     }
 }
+
+
 
