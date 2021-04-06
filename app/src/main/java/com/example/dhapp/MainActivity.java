@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity  {
 
         if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
             String errorMessage = "HTTP-Fehler: " + conn.getResponseMessage();
-            throw new Exception(errorMessage);
+            throw new IOException(errorMessage);
         } else{
             InputStream is = conn.getInputStream();
             InputStreamReader isr = new InputStreamReader(is);
@@ -132,12 +132,7 @@ public class MainActivity extends AppCompatActivity  {
 
             Log.i("Information", "show Toast");
 
-            Context context = getApplicationContext();
-            CharSequence text = "No Internet connection available. \n Please check your connection and try again.";
-            int duration = Toast.LENGTH_SHORT;
 
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
 
             Log.i("Information", "In if");
             String errorMessage = "HTTP-Fehler: " + conn.getResponseMessage();

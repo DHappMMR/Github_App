@@ -175,7 +175,7 @@ public class SearchFragment extends Fragment{
 
                 Log.i("Information", "*** Single Stock Overview Request successful ***");
 
-            } catch (Exception e){ //catch no Internet connection
+            } catch (IOException e){ //catch no Internet connection
 
                 Log.i("Information", "Error occured after SingleStockOverview requested");
 
@@ -187,13 +187,12 @@ public class SearchFragment extends Fragment{
                         .commit();
                  */
                 Log.i("Information", "Start new Fragment No Connection");
-
-                NoConnectionFragment newFrag = new NoConnectionFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_search, newFrag,"tag");
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                    NoConnectionFragment newFrag = new NoConnectionFragment();
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_search, newFrag,"tag");
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
 
                 Log.i("Information", "End new Fragment No Connection");
 
@@ -236,6 +235,8 @@ public class SearchFragment extends Fragment{
                 }
 
                 e.printStackTrace();*/
+            } catch (Exception e){
+                System.out.println("ich habe grüne hoden pls help");
             }
         }
     }
