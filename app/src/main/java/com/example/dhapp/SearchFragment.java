@@ -1,12 +1,20 @@
 package com.example.dhapp;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,6 +22,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +43,7 @@ public class SearchFragment extends Fragment{
     private String name;
     private String input;
     private Intent intent;
+    private Intent intent2;
     private JSONObject answer;
     private JSONObject stockName;
     private String open;
@@ -58,6 +69,7 @@ public class SearchFragment extends Fragment{
         stockInput =  (EditText) view.findViewById(R.id.stockNameEditView);
         confirm.setOnClickListener(v -> {
             try{
+                System.out.println("Button Active");
                 apiThread thread=new apiThread();
                 thread.start();
             }catch (Exception e){
@@ -77,14 +89,23 @@ public class SearchFragment extends Fragment{
     }
 
     public static String getMarketCap(String volume, String open){
+
+        Log.i("Information", "1");
         Double cap = Double.parseDouble(volume);
+        Log.i("Information", "Fail at Double.parseDouble");
         Double openValue = Double.parseDouble(open);
+        Log.i("Information", "3");
         cap = cap*openValue;
+        Log.i("Information", "4");
         if (cap > 1000000000){
+            Log.i("Information", "In if");
             cap = cap/1000000000;
+            Log.i("Information", "before if return");
             return String.format("%.2f", cap) + " Mrd. €";
         }else{
+            Log.i("Information", "In else");
             cap = cap/1000000;
+            Log.i("Information", "before else return");
             return String.format("%.2f",cap) + " Mio. €";
         }
     }
@@ -104,9 +125,12 @@ public class SearchFragment extends Fragment{
         @Override
         public void run(){
             try{
+                Log.i("Information", "Thread started");
                 input = stockInput.getText().toString();
                 stockName = ((MainActivity)getActivity()).getStockNameInformation(input);
+
                 name = stockName.getString("name");
+                Log.i("Information", "Name of Stock: " + name);
                 System.out.println(name);
 
                 answer = ((MainActivity)getActivity()).getStockInformation(input);
@@ -117,6 +141,7 @@ public class SearchFragment extends Fragment{
                 open = String.format("%.2f", Double.parseDouble(open));
 
                 volume = latestData.getString("volume");
+                Log.i("Information", "Fail after this");
                 String marketCapResult = getMarketCap(volume, open);
 
                 JSONObject yesterdayData = field.getJSONObject(1);
@@ -144,9 +169,73 @@ public class SearchFragment extends Fragment{
                 intent.putExtra("lowest", lowest);
                 intent.putExtra("date", date);
 
+                Log.i("Information", "Before Activity started");
+
                 startActivity(intent);
-            }catch (Exception e){
-                e.printStackTrace();
+
+                Log.i("Information", "*** Single Stock Overview Request successful ***");
+
+            } catch (Exception e){ //catch no Internet connection
+
+                Log.i("Information", "Error occured after SingleStockOverview requested");
+
+                /*
+                NextFragment nextFrag= new NextFragment();
+                   getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.Layout_container, nextFrag, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
+                 */
+                Log.i("Information", "Start new Fragment No Connection");
+
+                NoConnectionFragment newFrag = new NoConnectionFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_search, newFrag,"tag");
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+                Log.i("Information", "End new Fragment No Connection");
+
+
+                //intent2 = new Intent(requireContext(), NoConnectionFragment.class);
+
+                Log.i("Information", "End of starting new Activity No Connection");
+
+                System.out.println(e.getMessage());
+
+                /*ConnectivityManager cm =
+                        (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+
+
+                /* ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo nw = cm.getActiveNetworkInfo();
+
+                if (nw == null || !nw.isConnected() || !nw.isAvailable()) {
+                    Dialog dialog = new Dialog(this);
+                    dialog.setContentView(R.layout.no_connection);
+                    dialog.setCanceledOnTouchOutside(true);
+                    dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
+
+                    Button tryAgain = dialog.findViewById(R.id.tryAgain);
+                    tryAgain.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+                            recreate();
+                        }
+                    });
+
+                    dialog.show();
+                }
+
+                e.printStackTrace();*/
             }
         }
     }
