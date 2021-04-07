@@ -1,5 +1,6 @@
 package com.example.dhapp;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -37,6 +39,8 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class SearchFragment extends Fragment{
 
@@ -70,6 +74,7 @@ public class SearchFragment extends Fragment{
         confirm.setOnClickListener(v -> {
             try{
                 System.out.println("Button Active");
+                hideKeyboard(getContext());
                 apiThread thread=new apiThread();
                 thread.start();
             }catch (Exception e){
@@ -118,6 +123,13 @@ public class SearchFragment extends Fragment{
 
     public static String getDate(String date){
         return date.substring(8,10) + "/" + date.substring(5,7) + "/" + date.substring(0,4);
+    }
+
+    public static void hideKeyboard(Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(((Activity) mContext).getWindow()
+                .getCurrentFocus().getWindowToken(), 0);
     }
 
     class apiThread extends Thread{
@@ -178,14 +190,8 @@ public class SearchFragment extends Fragment{
             } catch (IOException e){ //catch no Internet connection
 
                 Log.i("Information", "Error occured after SingleStockOverview requested");
+                e.printStackTrace();
 
-                /*
-                NextFragment nextFrag= new NextFragment();
-                   getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.Layout_container, nextFrag, "findThisFragment")
-                        .addToBackStack(null)
-                        .commit();
-                 */
                 Log.i("Information", "Start new Fragment No Connection");
                     NoConnectionFragment newFrag = new NoConnectionFragment();
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -196,46 +202,13 @@ public class SearchFragment extends Fragment{
 
                 Log.i("Information", "End new Fragment No Connection");
 
-
-                //intent2 = new Intent(requireContext(), NoConnectionFragment.class);
-
-                Log.i("Information", "End of starting new Activity No Connection");
-
-                System.out.println(e.getMessage());
-
-                /*ConnectivityManager cm =
-                        (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-                boolean isConnected = activeNetwork != null &&
-                        activeNetwork.isConnectedOrConnecting();
-
-
-                /* ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo nw = cm.getActiveNetworkInfo();
-
-                if (nw == null || !nw.isConnected() || !nw.isAvailable()) {
-                    Dialog dialog = new Dialog(this);
-                    dialog.setContentView(R.layout.no_connection);
-                    dialog.setCanceledOnTouchOutside(true);
-                    dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
-
-                    Button tryAgain = dialog.findViewById(R.id.tryAgain);
-                    tryAgain.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View v) {
-                            recreate();
-                        }
-                    });
-
-                    dialog.show();
-                }
-
-                e.printStackTrace();*/
             } catch (Exception e){
+                spelling_mistake newFrag = new spelling_mistake();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_search, newFrag,"tag");
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
                 System.out.println("ich habe grüne hoden pls help");
             }
         }
