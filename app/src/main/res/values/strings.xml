@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name">DHapp</string>
-    <string name="stock_isin">Stock ISIN</string>
-    <string name="stock_name">Stock Name</string>
-    <string name="current_stock_value">Current Stock Value</string>
-    <string name="_2_57">-2,57 %</string>
-    <string name="_15_30">15,30 €</string>
+    <string name="isin">ISIN</string>
+    <string name="aktiensuche">Aktiensuche</string>
+    <string name="confirm">Confirm</string>
+    <string name="todo">TODO</string>
 
     <string-array name="AktienName">
         <item>Siemens</item>

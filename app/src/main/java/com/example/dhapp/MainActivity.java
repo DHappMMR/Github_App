@@ -1,7 +1,9 @@
 package com.example.dhapp;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,13 +15,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.Charset;
+
+public class MainActivity extends AppCompatActivity  {
+
 
     private Button confirm;
     public TextView showStockName;
+    private static String stock="";
+
+    private static String url="http://api.marketstack.com/v1/eod/latest?access_key=86a7719f8f68bb10f9cbef8614745331&symbols=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -65,4 +83,38 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
+    protected JSONObject getStockInformation(String ISIN) throws Exception {
+        URL link = null;
+        HttpURLConnection conn = null;
+        String object="";
+        JSONObject answer = null;
+        ISIN.toUpperCase();
+
+        link = new URL(url+ISIN);
+        conn = (HttpURLConnection) link.openConnection();
+        conn.setRequestMethod("GET");
+
+        if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            String errorMessage = "HTTP-Fehler: " + conn.getResponseMessage();
+            throw new Exception(errorMessage);
+        } else{
+            InputStream is = conn.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader reader = new BufferedReader(isr);
+
+            String line = "";
+            while ((line = reader.readLine())!=null){
+                object += line;
+            }
+            answer=parseJSON(object);
+        }
+        conn.disconnect();
+        return answer;
+    }
+
+    protected JSONObject parseJSON (String json) throws Exception{
+        JSONObject jsonObject = new JSONObject(json);
+        return jsonObject;
+    }
 }
