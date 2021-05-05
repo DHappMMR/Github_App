@@ -1,11 +1,14 @@
 package com.example.dhapp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -96,7 +99,7 @@ public class MainActivity extends AppCompatActivity  {
 
         if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
             String errorMessage = "HTTP-Fehler: " + conn.getResponseMessage();
-            throw new Exception(errorMessage);
+            throw new IOException(errorMessage);
         } else{
             InputStream is = conn.getInputStream();
             InputStreamReader isr = new InputStreamReader(is);
@@ -123,10 +126,21 @@ public class MainActivity extends AppCompatActivity  {
         conn = (HttpURLConnection) link.openConnection();
         conn.setRequestMethod("GET");
 
-        if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+        Log.i("Information", "Variables declared");
+
+        if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) { //if when stock name is not found
+
+            Log.i("Information", "show Toast");
+
+
+
+            Log.i("Information", "In if");
             String errorMessage = "HTTP-Fehler: " + conn.getResponseMessage();
+            Log.i("Information", "If worked");
             throw new Exception(errorMessage);
+
         } else{
+            Log.i("Information", "In else");
             InputStream is = conn.getInputStream();
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader reader = new BufferedReader(isr);
@@ -136,8 +150,10 @@ public class MainActivity extends AppCompatActivity  {
                 object += line;
             }
             answer=parseJSON(object);
+            Log.i("Information", "Else worked");
         }
         conn.disconnect();
+        Log.i("Information", "GetStockNameInformation Method successful");
         return answer;
     }
 
