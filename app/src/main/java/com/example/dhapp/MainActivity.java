@@ -119,8 +119,8 @@ public class MainActivity extends AppCompatActivity  {
 
 
     protected JSONObject getStockInformation(String ISIN) throws Exception {
-        Log.e("test12344321", "test1234");
-        System.out.println("test1234");
+        //Log.e("test12344321", "test1234");
+        //System.out.println("test1234");
 
         URL link = null;
         HttpURLConnection conn = null;
