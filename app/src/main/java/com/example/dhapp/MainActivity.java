@@ -83,9 +83,6 @@ public class MainActivity extends AppCompatActivity  {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        //Datenbank
-        _datenbankManager = new DbManager(this);
-
         showStockName = findViewById(R.id.ShowStockName);
 
         bottomNav.setSelectedItemId(R.id.nav_search);
