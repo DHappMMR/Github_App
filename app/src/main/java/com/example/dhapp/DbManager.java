@@ -33,7 +33,7 @@ public class DbManager extends SQLiteOpenHelper {
                     "marketCap INTEGER," +
                     "volume INTEGER," +
                     "FOREIGN KEY (symb) REFERENCES name(symbole) )"
-            );
+                    );
 
             db.execSQL("INSERT INTO value (symb, value, marketCap, volume) VALUES (APPL, 108, 1850000000, 6000)");
 
