@@ -1,5 +1,6 @@
 package com.example.dhapp;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -17,14 +18,16 @@ public class SingleStockOverview extends AppCompatActivity {
     static TextView ISIN;
     static TextView DEPOTvalue;
     static TextView DEPOTmarketcap;
-    static TextView DEPOTvalueD;
-    static TextView DEPOTvalueE;
-    static TextView DEPOTvalueF;
+    static TextView DEPOTtwentyFour;
+    static TextView DEPOTvolume;
+    static TextView DEPOThighest;
+    static TextView DEPOTlowest;
+    static TextView DEPOTdate;
 
     static String ClearName;
     static Double value;
     static Double marketCap;
-    static Double valueD;
+    static Double volume;
     static Double valueE;
     static Double valueF;
 
@@ -32,7 +35,7 @@ public class SingleStockOverview extends AppCompatActivity {
     static String StringISIN;
     static String StringDEPOTValue;
     static String StringDEPOTcap;
-    static String StringDEPOTvalueD;
+    static String StringDEPOTvolume;
     static String StringDEPOTvalueE;
     static String StringDEPOTvalueF;
 
@@ -42,34 +45,47 @@ public class SingleStockOverview extends AppCompatActivity {
         setContentView(R.layout.single_stock_overview);
 
         String name = getIntent().getStringExtra("name");
+        String symbol = getIntent().getStringExtra("symbol");
         String open = getIntent().getStringExtra("open");
+        String marketCap = getIntent().getStringExtra("marketCap");
+        String twentyFour = getIntent().getStringExtra("twentyFour");
+        String volume = getIntent().getStringExtra("volume");
+        String highest = getIntent().getStringExtra("highest");
+        String lowest = getIntent().getStringExtra("lowest");
+        String date = getIntent().getStringExtra("date");
+
 
         showStockName= findViewById(R.id.ShowStockName);
-        showStockName.setText(name);
+        showStockName.setText(symbol);
 
         StockName = findViewById(R.id.ShowClearName);
+        StockName.setText(name);
         ISIN = findViewById(R.id.ShowStockName);
         DEPOTvalue = findViewById(R.id.CurrentStockValue);
         DEPOTvalue.setText(open);
         DEPOTmarketcap = findViewById(R.id.MarketCapStringValue);
-        DEPOTvalueD = findViewById(R.id.ValueD);
-        DEPOTvalueE = findViewById(R.id.ValueE);
-        DEPOTvalueF = findViewById(R.id.ValueF);
+        DEPOTmarketcap.setText(marketCap);
+        DEPOTtwentyFour = findViewById(R.id.Change24HoursValue);
+        DEPOTtwentyFour.setText(twentyFour + "%");
+        DEPOTtwentyFour.setTextColor(textColor(twentyFour));
+        DEPOTvolume = findViewById(R.id.VolumeValue);
+        DEPOTvolume.setText(volume);
+        DEPOThighest = findViewById(R.id.HighestValue);
+        DEPOThighest.setText(highest);
+        DEPOTlowest = findViewById(R.id.LowestValue);
+        DEPOTlowest.setText(lowest);
+        DEPOTdate = findViewById(R.id.DateValue);
+        DEPOTdate.setText(date);
 
-        StockName.setText(ClearName);
-        /*DEPOTvalue.setText(value.toString());
-        DEPOTmarketcap.setText(marketCap.toString());
-        DEPOTvalueD.setText(valueD.toString());
-        DEPOTvalueE.setText(valueE.toString());
-        DEPOTvalueF.setText(valueF.toString());*/
 
-        StringDEPOTvalueF = DEPOTvalueF.getText().toString();
+
+        StringDEPOTvalueF = DEPOTlowest.getText().toString();
         StringStockName = StockName.getText().toString();
         StringISIN = ISIN.getText().toString();
         StringDEPOTValue = DEPOTvalue.getText().toString();
         StringDEPOTcap = DEPOTmarketcap.getText().toString();
-        StringDEPOTvalueD = DEPOTvalueD.getText().toString();
-        StringDEPOTvalueE = DEPOTvalueE.getText().toString();
+        StringDEPOTvolume = DEPOTvolume.getText().toString();
+        StringDEPOTvalueE = DEPOThighest.getText().toString();
     }
 
     public void goBack(View view) {
@@ -77,7 +93,16 @@ public class SingleStockOverview extends AppCompatActivity {
     }
 
 
-
+    public int textColor(String value){
+        Double textValue = Double.parseDouble(value);
+        if (textValue > 0) {
+            return Color.GREEN;
+        } else if(textValue==0){
+            return Color.BLACK;
+        } else {
+            return Color.RED;
+        }
+    }
     public void addToDepotMethod(View view) {
 
         TextView StockName;
@@ -102,17 +127,17 @@ public class SingleStockOverview extends AppCompatActivity {
 
         TextView DEPOTvalueD;
         String StringDEPOTvalueD;
-        DEPOTvalueD = findViewById(R.id.ValueD);
-        StringDEPOTvalueD = DEPOTvalueD.getText().toString();
+        DEPOTvalueD = findViewById(R.id.VolumeValue);
+        StringDEPOTvolume= DEPOTvalueD.getText().toString();
 
         TextView DEPOTvalueE;
         String StringDEPOTvalueE;
-        DEPOTvalueE = findViewById(R.id.ValueE);
+        DEPOTvalueE = findViewById(R.id.HighestValue);
         StringDEPOTvalueE = DEPOTvalueE.getText().toString();
 
         TextView DEPOTvalueF;
         String StringDEPOTvalueF;
-        DEPOTvalueF = findViewById(R.id.ValueF);
+        DEPOTvalueF = findViewById(R.id.LowestValue);
         StringDEPOTvalueF = DEPOTvalueF.getText().toString();
 
 

@@ -1,5 +1,6 @@
 package com.example.dhapp;
 
+
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -19,17 +20,21 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
+
 import android.os.UserHandle;
 import android.util.Log;
 import android.view.Display;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -58,12 +63,11 @@ import java.nio.charset.Charset;
 public class MainActivity extends AppCompatActivity  {
 
 
-    private Button confirm;
-     public TextView showStockName;
-    private static String stock="";
 
-    private static String url="http://api.marketstack.com/v1/eod/latest?access_key=86a7719f8f68bb10f9cbef8614745331&symbols=";
-    private DbManager _datenbankManager;
+    public TextView showStockName;
+    private String ISIN;
+    private static String url="http://api.marketstack.com/v1/eod?access_key=86a7719f8f68bb10f9cbef8614745331&symbols=";
+    private static String apiURLName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +138,7 @@ public class MainActivity extends AppCompatActivity  {
 
         if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
             String errorMessage = "HTTP-Fehler: " + conn.getResponseMessage();
-            throw new Exception(errorMessage);
+            throw new IOException(errorMessage);
         } else{
             InputStream is = conn.getInputStream();
             InputStreamReader isr = new InputStreamReader(is);
@@ -147,6 +151,48 @@ public class MainActivity extends AppCompatActivity  {
             answer=parseJSON(object);
         }
         conn.disconnect();
+        return answer;
+    }
+
+    protected JSONObject getStockNameInformation(String ISIN) throws Exception {
+        URL link = null;
+        HttpURLConnection conn = null;
+        String object="";
+        JSONObject answer = null;
+
+        apiURLName = "http://api.marketstack.com/v1/tickers/"+ ISIN + "?access_key=86a7719f8f68bb10f9cbef8614745331";
+        link = new URL(apiURLName);
+        conn = (HttpURLConnection) link.openConnection();
+        conn.setRequestMethod("GET");
+
+        Log.i("Information", "Variables declared");
+
+        if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) { //if when stock name is not found
+
+            Log.i("Information", "show Toast");
+
+
+
+            Log.i("Information", "In if");
+            String errorMessage = "HTTP-Fehler: " + conn.getResponseMessage();
+            Log.i("Information", "If worked");
+            throw new Exception(errorMessage);
+
+        } else{
+            Log.i("Information", "In else");
+            InputStream is = conn.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader reader = new BufferedReader(isr);
+
+            String line = "";
+            while ((line = reader.readLine())!=null){
+                object += line;
+            }
+            answer=parseJSON(object);
+            Log.i("Information", "Else worked");
+        }
+        conn.disconnect();
+        Log.i("Information", "GetStockNameInformation Method successful");
         return answer;
     }
 
