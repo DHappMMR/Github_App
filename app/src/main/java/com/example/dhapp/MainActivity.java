@@ -60,11 +60,10 @@ public class MainActivity extends AppCompatActivity  {
 
     private Button confirm;
     public TextView showStockName;
+    private String ISIN;
+    private static String url="http://api.marketstack.com/v1/eod?access_key=86a7719f8f68bb10f9cbef8614745331&symbols=";
+    private static String apiURLName;
     private static String stock="";
-
-    private static String url="http://api.marketstack.com/v1/eod/latest?access_key=86a7719f8f68bb10f9cbef8614745331&symbols=";
-    private DbManager _datenbankManager;
-
     private DbManager _datenbankManager;
 
     @Override
@@ -72,10 +71,7 @@ public class MainActivity extends AppCompatActivity  {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //Datenbank
         _datenbankManager = new DbManager(this);
-        Log.d("vanessasLog", _datenbankManager.toString());
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
