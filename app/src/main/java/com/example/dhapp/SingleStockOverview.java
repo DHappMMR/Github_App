@@ -1,8 +1,11 @@
 package com.example.dhapp;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -39,6 +42,9 @@ public class SingleStockOverview extends AppCompatActivity {
     static String StringDEPOTvalueE;
     static String StringDEPOTvalueF;
 
+    private Button addDepot;
+    private DbManager _datenbankManager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +60,7 @@ public class SingleStockOverview extends AppCompatActivity {
         String lowest = getIntent().getStringExtra("lowest");
         String date = getIntent().getStringExtra("date");
 
+        _datenbankManager = new DbManager(this);
 
         showStockName= findViewById(R.id.ShowStockName);
         showStockName.setText(symbol);
@@ -76,6 +83,11 @@ public class SingleStockOverview extends AppCompatActivity {
         DEPOTlowest.setText(lowest);
         DEPOTdate = findViewById(R.id.DateValue);
         DEPOTdate.setText(date);
+
+        addDepot = findViewById(R.id.addToDepot);
+        addDepot.setOnClickListener(v -> {
+            _datenbankManager.addDepotElement(name, symbol);
+        });
 
 
 
@@ -139,9 +151,5 @@ public class SingleStockOverview extends AppCompatActivity {
         String StringDEPOTvalueF;
         DEPOTvalueF = findViewById(R.id.LowestValue);
         StringDEPOTvalueF = DEPOTvalueF.getText().toString();
-
-
-
-
     }
 }

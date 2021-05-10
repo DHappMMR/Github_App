@@ -36,6 +36,12 @@ public class DbManager extends SQLiteOpenHelper {
                     "stockname TEXT)"
             );
 
+            db.execSQL("CREATE TABLE depot (" +
+                    "depotID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "name TEXT NOT NULL," +
+                    "symbol TEXT NOT NULL)"
+            );
+
             db.execSQL("CREATE INDEX name_index ON name(symbole)");
 
             db.execSQL("CREATE TABLE value ( " +
@@ -65,6 +71,12 @@ public class DbManager extends SQLiteOpenHelper {
             System.out.println("Fail");
         }
     }
+
+    public void addDepotElement(String elementName, String elementSymbol){
+        db.execSQL("INSERT INTO depot (name, symbol) VALUES (elementName, elementSymbol)");
+    }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
