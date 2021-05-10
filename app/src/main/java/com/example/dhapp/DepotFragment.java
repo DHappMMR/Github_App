@@ -1,5 +1,8 @@
 package com.example.dhapp;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,7 @@ public class DepotFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        DbManager dbManager = new DbManager(getContext());
         return inflater.inflate(R.layout.fragment_depot, container, false);
     }
 
@@ -32,8 +36,12 @@ public class DepotFragment extends Fragment {
 
         RecyclerView recyclerView;
 
-        while (Datenbank-Value != Null) {
-            Name.add()
+        String SpalteName = "name";
+        int index = 0;
+        
+        while ( <= last_) {
+            ((MainActivity)getActivity()).getValues(index, SpalteName);
+            index++;
         }
 
         String[] ArrayName = new String[Name.size()];

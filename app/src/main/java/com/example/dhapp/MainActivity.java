@@ -1,5 +1,6 @@
 package com.example.dhapp;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.MenuItem;
@@ -52,6 +53,10 @@ public class MainActivity extends AppCompatActivity  {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchFragment()).commit();
         }
 
+    }
+
+    public void getValues(int index, String columnName) {
+        _datenbankManager.getElements(index, columnName);
     }
 
 
