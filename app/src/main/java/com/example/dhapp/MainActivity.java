@@ -33,13 +33,14 @@ public class MainActivity extends AppCompatActivity  {
     private String ISIN;
     private static String url="http://api.marketstack.com/v1/eod?access_key=86a7719f8f68bb10f9cbef8614745331&symbols=";
     private static String apiURLName;
+    private DbManager _datenbankManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        _datenbankManager = new DbManager(this);
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
