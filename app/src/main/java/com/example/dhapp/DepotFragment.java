@@ -32,9 +32,9 @@ public class DepotFragment extends Fragment {
 
         RecyclerView recyclerView;
 
-        while (Datenbank-Value != Null) {
+     /*   while (Datenbank-Value != Null) {
             Name.add()
-        }
+        }*/
 
         String[] ArrayName = new String[Name.size()];
         ArrayName = Name.toArray(ArrayName);

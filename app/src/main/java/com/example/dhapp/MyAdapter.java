@@ -34,11 +34,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.AktienTitel.setText(data1[position]);
         holder.AktienWert.setText(data2[position]);
         holder.AktienChange24.setText(data3[position]);
-        if (Integer.parseInt(data3[position]) >= 0) {
+       /* if (Integer.parseInt(data3[position]) >= 0) {
             TextView percentage = findV
 
 
-        }
+        }*/
     }
 
     @Override
