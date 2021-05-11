@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ public class DepotFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        DbManager dbManager = new DbManager(getContext());
+
         return inflater.inflate(R.layout.fragment_depot, container, false);
     }
 
@@ -30,36 +31,55 @@ public class DepotFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ArrayList<String> Name = new ArrayList<String>();
-        ArrayList<String> Wert = new ArrayList<String>();
-        ArrayList<String> Change = new ArrayList<String>();
+        //TODO: OnViewCreated, immer nur bei erster Erstellung oder bei jedem Aufruf? Crash wenn keine Aktie im Depot ist
 
-        RecyclerView recyclerView;
+        try {
 
-        String SpalteName = "name";
-        int index = 0;
-        
-        while ( <= last_) {
-            ((MainActivity)getActivity()).getValues(index, SpalteName);
-            index++;
-        }
+            ArrayList<String> Name = new ArrayList<String>();
+            ArrayList<String> Wert = new ArrayList<String>();
+            ArrayList<String> Change = new ArrayList<String>();
 
-        String[] ArrayName = new String[Name.size()];
-        ArrayName = Name.toArray(ArrayName);
-        String[] ArrayWert = new String[Wert.size()];
-        ArrayWert = Wert.toArray(ArrayWert);
-        String[] ArrayChange = new String[Change.size()];
-        ArrayChange = Change.toArray(ArrayChange);
+            String[] ArrayName = new String[Name.size()];
+            String[] ArrayWert = new String[Wert.size()];
+            String[] ArrayChange = new String[Change.size()];
+
+            RecyclerView recyclerView;
+
+            //TODO: Richtige Spalten- und Tabellennamen für Name, Wert und 24-Change
+
+            String SpalteName = "name";
+            String SpalteValues = "values";
+            String SpalteChange = "change";
+
+            DbManager dbManager = new DbManager(getActivity());
+            ArrayName = dbManager.getElements(SpalteName);
+            ArrayWert = dbManager.getElements(SpalteValues);
+            ArrayChange = dbManager.getElements(SpalteChange);
+
+            ArrayName = Name.toArray(ArrayName);
+            ArrayWert = Wert.toArray(ArrayWert);
+            ArrayChange = Change.toArray(ArrayChange);
 /*
         ArrayName = getResources().getStringArray(R.array.ArrayName);
         ArrayWert = getResources().getStringArray(R.array.Wert);
         ArrayChange = getResources().getStringArray(R.array.Change);
 */
+            //TODO: Werte werden nicht in RecyclerView angezeigt, nur blank
 
-        recyclerView = view.findViewById(R.id.RecyclerView);
+            recyclerView = view.findViewById(R.id.RecyclerView);
 
-        MyAdapter myAdapter = new MyAdapter(requireContext(), ArrayName, ArrayWert, ArrayChange);
-        recyclerView.setAdapter(myAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+            MyAdapter myAdapter = new MyAdapter(requireContext(), ArrayName, ArrayWert, ArrayChange);
+            recyclerView.setAdapter(myAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+            Log.i("Information", "" + ArrayName);
+            Log.i("Information", "*********************************");
+            Log.i("Information", "" + ArrayWert);
+            Log.i("Information", "*********************************");
+            Log.i("Information", "" + ArrayChange);
+
+        } catch (Exception e) {
+            Log.i("Information", "Fail at starting DepotFragment");
+        }
     }
 }

@@ -74,7 +74,7 @@ public class DbManager extends SQLiteOpenHelper {
     }
 
     public void addDepotElement(String elementName, String elementSymbol){
-        db.execSQL("INSERT INTO depot (name, symbol) VALUES (elementName, elementSymbol)");
+        db.execSQL("INSERT INTO depot (name, symbol) VALUES (" + elementName + ", " + elementSymbol + ")");
     }
 
 
@@ -84,8 +84,22 @@ public class DbManager extends SQLiteOpenHelper {
         //leer
     }
 
-    public void getElements(int index, String ColumnName)  {
+    public String[] getElements(String ColumnName)  {
         db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT "+ ColumnName + "FROM depot" + "WHERE depotID = " + index, null);
+        Cursor cursor = db.rawQuery("SELECT "+ ColumnName + "FROM depot", null);
+        int amountResultRows = cursor.getCount();
+        if (amountResultRows == 0) {
+            return new String[]{};
+        }
+
+        String[] resultValues = new String[amountResultRows];
+        int counter = 0;
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            resultValues[counter] = cursor.getString(0);
+            counter++;
+        }
+
+        cursor.close();
+        return resultValues;
     }
 }

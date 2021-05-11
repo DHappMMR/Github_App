@@ -55,11 +55,6 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-    public void getValues(int index, String columnName) {
-        _datenbankManager.getElements(index, columnName);
-    }
-
-
   /*  public void changeActivityToSSO() {
         //StockName = editText.getText().toString();
         Intent intent = new Intent(this, SingleStockOverview.class);
