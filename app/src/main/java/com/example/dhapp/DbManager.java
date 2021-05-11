@@ -64,6 +64,17 @@ public class DbManager extends SQLiteOpenHelper {
             db.execSQL("INSERT INTO name (symbole, stockname) VALUES ('SAP', 'SAP SE ADR')");
             db.execSQL("INSERT INTO name (symbole, stockname) VALUES ('TSLA', 'Tesla Inc.')");
 
+
+            db.execSQL("CREATE TABLE depot (" +
+                    "depotID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "name TEXT NOT NULL," +
+                    "symbol TEXT NOT NULL," +
+                    "currentvalue TEXT," +
+                    "change TEXT)"
+            );
+            db.execSQL("CREATE INDEX depot_index ON depot(symbol)");
+
+
             System.out.println("Correct");
             Log.e("dbCorrect", db.getPath());
 
@@ -86,7 +97,7 @@ public class DbManager extends SQLiteOpenHelper {
 
     public String[] getElements(String ColumnName)  {
         db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT "+ ColumnName + "FROM depot", null);
+        Cursor cursor = db.rawQuery("SELECT "+ ColumnName + " FROM depot", null);
         int amountResultRows = cursor.getCount();
         if (amountResultRows == 0) {
             return new String[]{};

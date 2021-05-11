@@ -48,17 +48,12 @@ public class DepotFragment extends Fragment {
             //TODO: Richtige Spalten- und Tabellennamen für Name, Wert und 24-Change
 
             String SpalteName = "name";
-            String SpalteValues = "values";
-            String SpalteChange = "change";
 
             DbManager dbManager = new DbManager(getActivity());
+
             ArrayName = dbManager.getElements(SpalteName);
-            ArrayWert = dbManager.getElements(SpalteValues);
-            ArrayChange = dbManager.getElements(SpalteChange);
 
             ArrayName = Name.toArray(ArrayName);
-            ArrayWert = Wert.toArray(ArrayWert);
-            ArrayChange = Change.toArray(ArrayChange);
 /*
         ArrayName = getResources().getStringArray(R.array.ArrayName);
         ArrayWert = getResources().getStringArray(R.array.Wert);
@@ -68,15 +63,10 @@ public class DepotFragment extends Fragment {
 
             recyclerView = view.findViewById(R.id.RecyclerView);
 
-            MyAdapter myAdapter = new MyAdapter(requireContext(), ArrayName, ArrayWert, ArrayChange);
+            MyAdapter myAdapter = new MyAdapter(requireContext(), ArrayName);
             recyclerView.setAdapter(myAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-            Log.i("Information", "" + ArrayName);
-            Log.i("Information", "*********************************");
-            Log.i("Information", "" + ArrayWert);
-            Log.i("Information", "*********************************");
-            Log.i("Information", "" + ArrayChange);
 
         } catch (Exception e) {
             Log.i("Information", "Fail at starting DepotFragment");
