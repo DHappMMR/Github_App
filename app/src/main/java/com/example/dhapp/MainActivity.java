@@ -1,5 +1,6 @@
 package com.example.dhapp;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.MenuItem;
@@ -53,7 +54,6 @@ public class MainActivity extends AppCompatActivity  {
         }
 
     }
-
 
   /*  public void changeActivityToSSO() {
         //StockName = editText.getText().toString();
