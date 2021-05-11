@@ -36,12 +36,8 @@ public class DepotFragment extends Fragment {
         try {
 
             ArrayList<String> Name = new ArrayList<String>();
-            ArrayList<String> Wert = new ArrayList<String>();
-            ArrayList<String> Change = new ArrayList<String>();
 
             String[] ArrayName = new String[Name.size()];
-            String[] ArrayWert = new String[Wert.size()];
-            String[] ArrayChange = new String[Change.size()];
 
             RecyclerView recyclerView;
 
@@ -50,9 +46,8 @@ public class DepotFragment extends Fragment {
             String SpalteName = "name";
 
             DbManager dbManager = new DbManager(getActivity());
-
+            Log.i("Information", "Here");
             ArrayName = dbManager.getElements(SpalteName);
-
             ArrayName = Name.toArray(ArrayName);
 /*
         ArrayName = getResources().getStringArray(R.array.ArrayName);

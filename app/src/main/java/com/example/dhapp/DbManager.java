@@ -26,7 +26,6 @@ public class DbManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         Log.d("marcsLog", this.toString());
 
         try {
@@ -42,6 +41,9 @@ public class DbManager extends SQLiteOpenHelper {
                     "name TEXT NOT NULL," +
                     "symbol TEXT NOT NULL)"
             );
+            db.execSQL("CREATE INDEX depot_index ON depot(symbol)");
+            db.execSQL("INSERT INTO depot (name, symbol) VALUES ('Apple', 'AAPl')");
+
 
             db.execSQL("CREATE INDEX name_index ON name(symbole)");
 
@@ -65,27 +67,19 @@ public class DbManager extends SQLiteOpenHelper {
             db.execSQL("INSERT INTO name (symbole, stockname) VALUES ('TSLA', 'Tesla Inc.')");
 
 
-            db.execSQL("CREATE TABLE depot (" +
-                    "depotID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "name TEXT NOT NULL," +
-                    "symbol TEXT NOT NULL," +
-                    "currentvalue TEXT," +
-                    "change TEXT)"
-            );
-            db.execSQL("CREATE INDEX depot_index ON depot(symbol)");
 
 
-            System.out.println("Correct");
+
             Log.e("dbCorrect", db.getPath());
 
         } catch (SQLException e) {
             Log.d("dbFail", "Exception bei Create Methode" + e);
-            System.out.println("Fail");
         }
     }
 
     public void addDepotElement(String elementName, String elementSymbol){
-        db.execSQL("INSERT INTO depot (name, symbol) VALUES (" + elementName + ", " + elementSymbol + ")");
+        db.execSQL("INSERT INTO depot (name, symbol) VALUES ('" + elementName + "', '" + elementSymbol + "')");
+
     }
 
 
