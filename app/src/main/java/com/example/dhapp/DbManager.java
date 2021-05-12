@@ -11,7 +11,7 @@ import javax.xml.namespace.QName;
 
 public class DbManager extends SQLiteOpenHelper {
 
-    SQLiteDatabase db;
+    static SQLiteDatabase db;
 
 
     public DbManager(Context context) {
@@ -20,18 +20,15 @@ public class DbManager extends SQLiteOpenHelper {
                 null,
                 1);
         Log.d("hallo1234", this.toString());
-        db = getWritableDatabase();
+        db=getWritableDatabase();
         //db.close();
-        Log.d("marcsLog8", this.toString());
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         Log.d("marcsLog", this.toString());
 
         try {
-            Log.d("marcsLog2", this.toString());
 
             db.execSQL("CREATE TABLE name (" +
                     "nameID INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -42,10 +39,13 @@ public class DbManager extends SQLiteOpenHelper {
             db.execSQL("CREATE TABLE depot (" +
                     "depotID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "name TEXT NOT NULL," +
-                    "symbol TEXT NOT NULL)"
+                    "symbol TEXT NOT NULL," +
+                    "open TEXT NOT NULL," +
+                    "change TEXT NOT NULL)"
             );
+            db.execSQL("CREATE INDEX depot_index ON depot(symbol)");
+            db.execSQL("INSERT INTO depot (name, symbol) VALUES ('Apple', 'AAPl')");
 
-            Log.d("marcsLog3", this.toString());
 
             db.execSQL("CREATE INDEX name_index ON name(symbole)");
 
@@ -68,19 +68,21 @@ public class DbManager extends SQLiteOpenHelper {
             db.execSQL("INSERT INTO name (symbole, stockname) VALUES ('SAP', 'SAP SE ADR')");
             db.execSQL("INSERT INTO name (symbole, stockname) VALUES ('TSLA', 'Tesla Inc.')");
 
-            System.out.println("Correct");
+
+
+
+
             Log.e("dbCorrect", db.getPath());
 
         } catch (SQLException e) {
             Log.d("dbFail", "Exception bei Create Methode" + e);
-            System.out.println("Fail");
         }
     }
 
-    public void addDepotElement(String elementName, String elementSymbol) {
-        db.execSQL("INSERT INTO depot (name, symbol) VALUES (elementName, elementSymbol)");
-    }
+    public void addDepotElement(String elementName, String elementSymbol, String elementOpen, String elementChange){
+        db.execSQL("INSERT INTO depot (name, symbol, open, change) VALUES ('" + elementName + "', '" + elementSymbol + "', '" + elementOpen + "', '" + elementChange + "')");
 
+    }
 
     public void addHistoryElement(int id, String symbole, int val, int market, int vol) {
         db.execSQL("INSERT INTO value (valueID, symb, value, marketCap, volume) VALUES (id, symbole, val, market, vol)");
@@ -90,11 +92,11 @@ public class DbManager extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT valueID, symb, value " +
-                        "  FROM value " +
-                        "  ORDER BY valueID ASC",
+                        " FROM value " +
+                        " ORDER BY valueID ASC",
                 null);
 
-        // Ergebnis der Query auswerten
+// Ergebnis der Query auswerten
         int anzahlErgebnisZeilen = cursor.getCount();
         if (anzahlErgebnisZeilen == 0) {
             return new String[]{};
@@ -117,5 +119,24 @@ public class DbManager extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //leer
+    }
+
+    public String[] getElements(String ColumnName)  {
+        db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT "+ ColumnName + " FROM depot", null);
+        int amountResultRows = cursor.getCount();
+        if (amountResultRows == 0) {
+            return new String[]{};
+        }
+
+        String[] resultValues = new String[amountResultRows];
+        int counter = 0;
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            resultValues[counter] = cursor.getString(0);
+            counter++;
+        }
+
+        cursor.close();
+        return resultValues;
     }
 }

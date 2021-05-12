@@ -1,5 +1,6 @@
 package com.example.dhapp;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -41,9 +42,7 @@ public class MainActivity extends AppCompatActivity  {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         _datenbankManager = new DbManager(this);
-        Log.d("marcsLog6", this.toString());
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
@@ -55,9 +54,7 @@ public class MainActivity extends AppCompatActivity  {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchFragment()).commit();
         }
 
-        suchverlaufAnzeigen(); //TODO delete
     }
-
 
   /*  public void changeActivityToSSO() {
         //StockName = editText.getText().toString();
@@ -151,14 +148,8 @@ public class MainActivity extends AppCompatActivity  {
         return jsonObject;
     }
 
-
-
-    /**
-     * Anzeigen des Suchverlaufs
-     */
     protected void suchverlaufAnzeigen() {
 
-        // *** Eigentliche DB-Query ausführen ***
         String[] aktien;
         String errorMsg;
 
@@ -169,23 +160,13 @@ public class MainActivity extends AppCompatActivity  {
             errorMsg = "Exception bei ausgabeAktie() aufgetreten: " + ex;
             return;
         }
-
-
         if (aktien == null || aktien.length == 0) {
-            //jeweiliges Textfeld noch ergänzen
-            //_textViewBedeutungen.setText("");
-            //showToast("Abkürzung '" + suchString + "' nicht gefunden.");
-            Log.d("TEST Suchverlauf", aktien.toString());
             return;
         }
-
-        // *** Ergebnis-Treffer darstellen ***
         StringBuffer sb = new StringBuffer();
         for(String bedeutung: aktien) {
 
             sb.append(bedeutung).append("\n");
         }
-        Log.d("TEST2", sb.toString());
-        //_textViewBedeutungen.setText(sb.toString());
     }
 }

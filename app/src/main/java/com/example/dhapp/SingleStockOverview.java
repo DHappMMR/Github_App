@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,13 +27,6 @@ public class SingleStockOverview extends AppCompatActivity {
     static TextView DEPOThighest;
     static TextView DEPOTlowest;
     static TextView DEPOTdate;
-
-    static String ClearName;
-    static Double value;
-    static Double marketCap;
-    static Double volume;
-    static Double valueE;
-    static Double valueF;
 
     static String StringStockName;
     static String StringISIN;
@@ -60,7 +54,7 @@ public class SingleStockOverview extends AppCompatActivity {
         String lowest = getIntent().getStringExtra("lowest");
         String date = getIntent().getStringExtra("date");
 
-        _datenbankManager = new DbManager(this);
+        _datenbankManager = new DbManager(getApplicationContext());
 
         showStockName= findViewById(R.id.ShowStockName);
         showStockName.setText(symbol);
@@ -84,9 +78,10 @@ public class SingleStockOverview extends AppCompatActivity {
         DEPOTdate = findViewById(R.id.DateValue);
         DEPOTdate.setText(date);
 
+
         addDepot = findViewById(R.id.addToDepot);
         addDepot.setOnClickListener(v -> {
-            _datenbankManager.addDepotElement(name, symbol);
+            _datenbankManager.addDepotElement(name, symbol, open, twentyFour);
         });
 
 

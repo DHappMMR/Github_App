@@ -14,10 +14,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     String data1[], data2[], data3[];
     Context context;
 
-    public MyAdapter(Context ct, String AktienNamen[], String AktienWerte[], String AktienChange[]) {
+    public MyAdapter(Context ct, String AktienName[], String AktienValue[], String AktienChange[]) {
         context = ct;
-        data1 = AktienNamen;
-        data2 = AktienWerte;
+        data1 = AktienName;
+        data2 = AktienValue;
         data3 = AktienChange;
     }
 
@@ -32,10 +32,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.AktienTitel.setText(data1[position]);
-        holder.AktienWert.setText(data2[position]);
-        holder.AktienChange24.setText(data3[position]);
-       /* if (Integer.parseInt(data3[position]) >= 0) {
-            TextView percentage = findV
+        holder.AktienWert.setText(data2[position] );
+        holder.AktienChange24.setText(data3[position]+ "%");
+     /*   if (Integer.parseInt(data3[position]) >= 0) {
+            TextView percentage =
 
 
         }*/
@@ -48,7 +48,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView AktienTitel, AktienWert, AktienChange24;
+        TextView AktienTitel;
+        TextView AktienWert;
+        TextView AktienChange24;
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

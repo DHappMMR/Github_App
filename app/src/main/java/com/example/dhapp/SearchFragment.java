@@ -73,7 +73,6 @@ public class SearchFragment extends Fragment{
         stockInput =  (EditText) view.findViewById(R.id.stockNameEditView);
         confirm.setOnClickListener(v -> {
             try{
-                System.out.println("Button Active");
                 hideKeyboard(getContext());
                 apiThread thread=new apiThread();
                 thread.start();
@@ -95,22 +94,14 @@ public class SearchFragment extends Fragment{
 
     public static String getMarketCap(String volume, String open){
 
-        Log.i("Information", "1");
         Double cap = Double.parseDouble(volume);
-        Log.i("Information", "Fail at Double.parseDouble");
         Double openValue = Double.parseDouble(open);
-        Log.i("Information", "3");
         cap = cap*openValue;
-        Log.i("Information", "4");
         if (cap > 1000000000){
-            Log.i("Information", "In if");
             cap = cap/1000000000;
-            Log.i("Information", "before if return");
             return String.format("%.2f", cap) + " Mrd. €";
         }else{
-            Log.i("Information", "In else");
             cap = cap/1000000;
-            Log.i("Information", "before else return");
             return String.format("%.2f",cap) + " Mio. €";
         }
     }
@@ -137,12 +128,10 @@ public class SearchFragment extends Fragment{
         @Override
         public void run(){
             try{
-                Log.i("Information", "Thread started");
                 input = stockInput.getText().toString();
                 stockName = ((MainActivity)getActivity()).getStockNameInformation(input);
 
                 name = stockName.getString("name");
-                Log.i("Information", "Name of Stock: " + name);
                 System.out.println(name);
 
                 answer = ((MainActivity)getActivity()).getStockInformation(input);
@@ -153,7 +142,6 @@ public class SearchFragment extends Fragment{
                 open = String.format("%.2f", Double.parseDouble(open));
 
                 volume = latestData.getString("volume");
-                Log.i("Information", "Fail after this");
                 String marketCapResult = getMarketCap(volume, open);
 
                 JSONObject yesterdayData = field.getJSONObject(1);
@@ -181,18 +169,14 @@ public class SearchFragment extends Fragment{
                 intent.putExtra("lowest", lowest);
                 intent.putExtra("date", date);
 
-                Log.i("Information", "Before Activity started");
 
                 startActivity(intent);
 
-                Log.i("Information", "*** Single Stock Overview Request successful ***");
 
             } catch (IOException e){ //catch no Internet connection
 
-                Log.i("Information", "Error occured after SingleStockOverview requested");
                 e.printStackTrace();
 
-                Log.i("Information", "Start new Fragment No Connection");
                     NoConnectionFragment newFrag = new NoConnectionFragment();
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -200,7 +184,6 @@ public class SearchFragment extends Fragment{
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
 
-                Log.i("Information", "End new Fragment No Connection");
 
             } catch (Exception e){
                 spelling_mistake newFrag = new spelling_mistake();
