@@ -1,6 +1,7 @@
 package com.example.dhapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,10 @@ public class HistoryFragment extends Fragment {
 
     DbManager dbm;
     TextView historyName;
-    Button deleteHistory;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_history, container, false);
     }
 
@@ -31,21 +30,9 @@ public class HistoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         try {
-
             dbm = new DbManager(getActivity());
-            String name;
 
             historyName = view.findViewById(R.id.historyName);
-
-            name = historyName.getText().toString();
-            deleteHistory = view.findViewById(R.id.deleteHistoryButton);
-            deleteHistory.setOnClickListener(v -> {
-                try{
-                    dbm.deleteHistoryElement(name);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            });
 
             RecyclerView recyclerView;
 
@@ -66,4 +53,5 @@ public class HistoryFragment extends Fragment {
 
         } catch (Exception e) {e.printStackTrace();}
     }
+
 }
