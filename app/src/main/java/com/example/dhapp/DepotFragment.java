@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DepotFragment extends Fragment {
@@ -32,17 +33,13 @@ public class DepotFragment extends Fragment {
 
         try {
 
-            ArrayList<String> Name = new ArrayList<String>();
-            ArrayList<String> Wert = new ArrayList<String>();
-            ArrayList<String> Change = new ArrayList<String>();
-
-            String[] ArrayName = new String[Name.size()];
-            String[] ArrayValue = new String[Name.size()];
-            String[] ArrayChange = new String[Name.size()];
-
             RecyclerView recyclerView;
 
             //TODO: Richtige Spalten- und Tabellennamen für Name, Wert und 24-Change
+
+            String[] ArrayName;
+            String[] ArrayValue;
+            String[] ArrayChange;
 
             String columnName = "name";
             String columnValue = "open";
@@ -52,11 +49,8 @@ public class DepotFragment extends Fragment {
 
 
             ArrayName = dbManager.getElements(columnName);
-            ArrayName = Name.toArray(ArrayName);
             ArrayValue = dbManager.getElements(columnValue);
-            ArrayValue = Wert.toArray(ArrayValue);
             ArrayChange= dbManager.getElements(columnChange);
-            ArrayChange = Change.toArray(ArrayChange);
 
             recyclerView = view.findViewById(R.id.RecyclerViewDepot);
 
