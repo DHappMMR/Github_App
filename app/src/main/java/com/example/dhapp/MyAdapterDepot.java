@@ -1,16 +1,21 @@
 package com.example.dhapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyAdapterDepot extends RecyclerView.Adapter<MyAdapterDepot.MyViewHolder> {
 
+    Intent intent;
     String data1[], data2[], data3[];
     Context context;
 
@@ -53,6 +58,23 @@ public class MyAdapterDepot extends RecyclerView.Adapter<MyAdapterDepot.MyViewHo
             stockNameView = itemView.findViewById(R.id.Headline);
             stockValueView = itemView.findViewById(R.id.Value);
             stockChangeView = itemView.findViewById(R.id.Percentage);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    intent = new Intent(v.getContext(), SingleStockOverviewDepot.class);
+
+                    v.getContext().startActivity(intent);
+                    try {
+                        DepotFragment.apiThread thread=new DepotFragment().new apiThread();
+                        thread.start();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
     }
+
+
 }

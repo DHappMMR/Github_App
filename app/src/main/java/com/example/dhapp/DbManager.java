@@ -51,6 +51,10 @@ public class DbManager extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO depot (name, symbol, open, change) VALUES ('" + elementName + "', '" + elementSymbol + "', '" + elementOpen + "', '" + elementChange + "')");
 
     }
+    //TODO: SQL-Statement nicht erfolgreich, Aufruf scheint aber richtig zu sein
+    public void deleteDepotElement(String name){
+        db.execSQL("DELETE FROM depot WHERE name = '" + name + "'");
+    }
 
     public void addHistoryElement(String historyName) {
         db.execSQL("INSERT INTO history (name) VALUES ('" + historyName + "')");

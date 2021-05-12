@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SingleStockOverview"/>
-        <activity android:name=".Impressum"/>
+        <activity android:name=".SingleStockOverviewDepot"/>
     </application>
 
 </manifest>
