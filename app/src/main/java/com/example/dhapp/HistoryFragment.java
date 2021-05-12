@@ -1,10 +1,10 @@
 package com.example.dhapp;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,11 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class HistoryFragment extends Fragment {
 
+    Button DeleteHistory;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_impressum, container, false);
+        return inflater.inflate(R.layout.fragment_history, container, false);
     }
 
     @Override
@@ -32,10 +34,11 @@ public class HistoryFragment extends Fragment {
             String[] HistoryName;
 
             String columnName = "name";
+            String tableName = "history";
 
             DbManager dbManager = new DbManager(getActivity());
 
-            HistoryName = dbManager.getElements(columnName);
+            HistoryName = dbManager.getElements(columnName, tableName);
 
             recyclerView = view.findViewById(R.id.RecyclerViewHistory);
 
@@ -44,7 +47,7 @@ public class HistoryFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         } catch (Exception e) {
-            //nüscht
+//nüscht
         }
     }
 }

@@ -14,7 +14,7 @@
         android:id="@+id/nav_search"/>
 
     <item
-        android:title="Impressum"
-        android:icon="@drawable/impressum"
+        android:title="History"
+        android:icon="@drawable/ic_baseline_history_24"
         android:id="@+id/nav_impressum"/>
 </menu>

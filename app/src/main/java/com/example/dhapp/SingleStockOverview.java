@@ -43,7 +43,7 @@ public class SingleStockOverview extends AppCompatActivity {
         setContentView(R.layout.single_stock_overview);
 
         String name = getIntent().getStringExtra("name");
-        String symbol = getIntent().getStringExtra("symbol");
+        String symbol = getIntent().getStringExtra("symbol").toUpperCase().toLowerCase().toUpperCase();
         String open = getIntent().getStringExtra("open");
         String marketCap = getIntent().getStringExtra("marketCap");
         String twentyFour = getIntent().getStringExtra("twentyFour");

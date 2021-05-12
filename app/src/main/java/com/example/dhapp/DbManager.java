@@ -46,8 +46,7 @@ public class DbManager extends SQLiteOpenHelper {
             db.execSQL("CREATE INDEX history_index ON history(name)");
 
 
-        } catch (SQLException e) {
-        }
+        } catch (SQLException e) { }
     }
 
     public void addDepotElement(String elementName, String elementSymbol, String elementOpen, String elementChange){
@@ -92,9 +91,12 @@ public class DbManager extends SQLiteOpenHelper {
         //leer
     }
 
-    public String[] getElements(String ColumnName)  {
+    public String[] getElements(String ColumnName, String TableName) {
         db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT DISTINCT "+ ColumnName + " FROM depot", null);
+        Cursor cursor = db.rawQuery("SELECT "+ ColumnName + " FROM " + TableName, null);
+        if (TableName.equals("depot")){
+            cursor = db.rawQuery("SELECT DISTINCT "+ ColumnName + " FROM " + TableName, null);
+        }
         int amountResultRows = cursor.getCount();
         if (amountResultRows == 0) {
             return new String[]{};

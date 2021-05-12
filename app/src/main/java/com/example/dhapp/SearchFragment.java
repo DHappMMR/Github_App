@@ -132,7 +132,7 @@ public class SearchFragment extends Fragment{
         @Override
         public void run(){
             try{
-                input = stockInput.getText().toString().toUpperCase();
+                input = stockInput.getText().toString();
                 stockName = ((MainActivity)getActivity()).getStockNameInformation(input);
 
                 name = stockName.getString("name");
