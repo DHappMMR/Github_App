@@ -23,12 +23,12 @@ public class spelling_mistake extends Fragment {
     private Button back;
     private Intent intent;
 
-    // TODO: Rename parameter arguments, choose names that match
+    // TOD: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    // TOD: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -44,7 +44,7 @@ public class spelling_mistake extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment spelling_mistake.
      */
-    // TODO: Rename and change types and number of parameters
+    // TOD: Rename and change types and number of parameters
     public static spelling_mistake newInstance(String param1, String param2) {
         spelling_mistake fragment = new spelling_mistake();
         Bundle args = new Bundle();
