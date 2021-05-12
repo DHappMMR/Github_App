@@ -9,12 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class MyAdapterDepot extends RecyclerView.Adapter<MyAdapterDepot.MyViewHolder> {
 
     String data1[], data2[], data3[];
     Context context;
 
-    public MyAdapter(Context ct, String AktienName[], String AktienValue[], String AktienChange[]) {
+    public MyAdapterDepot(Context ct, String AktienName[], String AktienValue[], String AktienChange[]) {
         context = ct;
         data1 = AktienName;
         data2 = AktienValue;
