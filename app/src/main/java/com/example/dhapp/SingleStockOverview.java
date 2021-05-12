@@ -91,7 +91,7 @@ public class SingleStockOverview extends AppCompatActivity {
 
         addDepot = findViewById(R.id.addToDepot);
         addDepot.setOnClickListener(v -> {
-            _datenbankManager.addDepotElement(name, symbol);
+            _datenbankManager.addDepotElement(name, symbol, open, twentyFour);
         });
 
 

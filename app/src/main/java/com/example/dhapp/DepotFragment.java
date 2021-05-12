@@ -48,7 +48,7 @@ public class DepotFragment extends Fragment {
             //TODO: Richtige Spalten- und Tabellennamen für Name, Wert und 24-Change
 
             String columnName = "name";
-            String columnValue = "currentvalue";
+            String columnValue = "open";
             String columnChange = "change";
 
             DbManager dbManager = new DbManager(getActivity());
@@ -56,16 +56,10 @@ public class DepotFragment extends Fragment {
 
             ArrayName = dbManager.getElements(columnName);
             ArrayName = Name.toArray(ArrayName);
-            ArrayValue = dbManager.getElements(columnName);
+            ArrayValue = dbManager.getElements(columnValue);
             ArrayValue = Wert.toArray(ArrayValue);
-            ArrayChange= dbManager.getElements(columnName);
+            ArrayChange= dbManager.getElements(columnChange);
             ArrayChange = Change.toArray(ArrayChange);
-/*
-        ArrayName = getResources().getStringArray(R.array.ArrayName);
-        ArrayWert = getResources().getStringArray(R.array.Wert);
-        ArrayChange = getResources().getStringArray(R.array.Change);
-*/
-            //TODO: Werte werden nicht in RecyclerView angezeigt, nur blank
 
             recyclerView = view.findViewById(R.id.RecyclerView);
 

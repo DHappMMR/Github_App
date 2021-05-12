@@ -40,7 +40,7 @@ public class DbManager extends SQLiteOpenHelper {
                     "depotID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "name TEXT NOT NULL," +
                     "symbol TEXT NOT NULL," +
-                    "currentvalue TEXT NOT NULL," +
+                    "open TEXT NOT NULL," +
                     "change TEXT NOT NULL)"
             );
             db.execSQL("CREATE INDEX depot_index ON depot(symbol)");
@@ -79,8 +79,8 @@ public class DbManager extends SQLiteOpenHelper {
         }
     }
 
-    public void addDepotElement(String elementName, String elementSymbol){
-        db.execSQL("INSERT INTO depot (name, symbol) VALUES ('" + elementName + "', '" + elementSymbol + "')");
+    public void addDepotElement(String elementName, String elementSymbol, String elementOpen, String elementChange){
+        db.execSQL("INSERT INTO depot (name, symbol, open, change) VALUES ('" + elementName + "', '" + elementSymbol + "', '" + elementOpen + "', '" + elementChange + "')");
 
     }
 
