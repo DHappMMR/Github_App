@@ -1,18 +1,14 @@
 package com.example.dhapp;
 
-import android.content.Intent;
 import android.graphics.Color;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.w3c.dom.Text;
 
 public class SingleStockOverview extends AppCompatActivity {
     //merge-Test
@@ -38,6 +34,8 @@ public class SingleStockOverview extends AppCompatActivity {
 
     private Button addDepot;
     private DbManager _datenbankManager;
+
+    //private EditText searchText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,8 +78,10 @@ public class SingleStockOverview extends AppCompatActivity {
 
 
         addDepot = findViewById(R.id.addToDepot);
+        _datenbankManager.addHistoryElement(name);
         addDepot.setOnClickListener(v -> {
             _datenbankManager.addDepotElement(name, symbol, open, twentyFour);
+            finish();
         });
 
 
@@ -109,42 +109,5 @@ public class SingleStockOverview extends AppCompatActivity {
         } else {
             return Color.RED;
         }
-    }
-    public void addToDepotMethod(View view) {
-
-        TextView StockName;
-        String StringStockName;
-        StockName = findViewById(R.id.ShowClearName);
-        StringStockName = StockName.getText().toString();
-
-        TextView ISIN;
-        String StringISIN;
-        ISIN = findViewById(R.id.ShowStockName);
-        StringISIN = ISIN.getText().toString();
-
-        TextView DEPOTvalue;
-        String StringDEPOTValue;
-        DEPOTvalue = findViewById(R.id.CurrentStockValue);
-        StringDEPOTValue = DEPOTvalue.getText().toString();
-
-        TextView DEPOTmarketcap;
-        String StringDEPOTcap;
-        DEPOTmarketcap = findViewById(R.id.MarketCapStringValue);
-        StringDEPOTcap = DEPOTmarketcap.getText().toString();
-
-        TextView DEPOTvalueD;
-        String StringDEPOTvalueD;
-        DEPOTvalueD = findViewById(R.id.VolumeValue);
-        StringDEPOTvolume= DEPOTvalueD.getText().toString();
-
-        TextView DEPOTvalueE;
-        String StringDEPOTvalueE;
-        DEPOTvalueE = findViewById(R.id.HighestValue);
-        StringDEPOTvalueE = DEPOTvalueE.getText().toString();
-
-        TextView DEPOTvalueF;
-        String StringDEPOTvalueF;
-        DEPOTvalueF = findViewById(R.id.LowestValue);
-        StringDEPOTvalueF = DEPOTvalueF.getText().toString();
     }
 }

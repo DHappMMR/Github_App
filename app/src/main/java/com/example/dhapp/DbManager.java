@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import javax.xml.namespace.QName;
 
 public class DbManager extends SQLiteOpenHelper {
 
@@ -26,15 +25,8 @@ public class DbManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d("marcsLog", this.toString());
 
         try {
-
-            db.execSQL("CREATE TABLE name (" +
-                    "nameID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "symbole TEXT NOT NULL, " +
-                    "stockname TEXT)"
-            );
 
             db.execSQL("CREATE TABLE depot (" +
                     "depotID INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -43,39 +35,18 @@ public class DbManager extends SQLiteOpenHelper {
                     "open TEXT NOT NULL," +
                     "change TEXT NOT NULL)"
             );
+
             db.execSQL("CREATE INDEX depot_index ON depot(symbol)");
-            db.execSQL("INSERT INTO depot (name, symbol) VALUES ('Apple', 'AAPl')");
 
-
-            db.execSQL("CREATE INDEX name_index ON name(symbole)");
-
-            db.execSQL("CREATE TABLE value ( " +
-                    "valueID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "symb TEXT NOT NULL," +
-                    "value INTEGER," +
-                    "marketCap INTEGER," +
-                    "volume INTEGER," +
-                    "FOREIGN KEY (symb) REFERENCES name(symbole) )"
+            db.execSQL("CREATE TABLE history (" +
+                    "historyID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "name TEXT NOT NULL)"
             );
 
-            db.execSQL("CREATE INDEX value_index ON value(symb)");
+            db.execSQL("CREATE INDEX history_index ON history(name)");
 
-            db.execSQL("INSERT INTO value (symb, value, marketCap, volume) VALUES ('APPL', 108, 1850000000, 6000)");
-            db.execSQL("INSERT INTO value (symb, value, marketCap, volume) VALUES ('SAP', 1, 2, 3)");
-            db.execSQL("INSERT INTO value (symb, value, marketCap, volume) VALUES ('TSLA', 4, 5, 6)");
-
-            db.execSQL("INSERT INTO name (symbole, stockname) VALUES ('APPL', 'Apple_Inc')");
-            db.execSQL("INSERT INTO name (symbole, stockname) VALUES ('SAP', 'SAP SE ADR')");
-            db.execSQL("INSERT INTO name (symbole, stockname) VALUES ('TSLA', 'Tesla Inc.')");
-
-
-
-
-
-            Log.e("dbCorrect", db.getPath());
 
         } catch (SQLException e) {
-            Log.d("dbFail", "Exception bei Create Methode" + e);
         }
     }
 
@@ -84,8 +55,8 @@ public class DbManager extends SQLiteOpenHelper {
 
     }
 
-    public void addHistoryElement(int id, String symbole, int val, int market, int vol) {
-        db.execSQL("INSERT INTO value (valueID, symb, value, marketCap, volume) VALUES (id, symbole, val, market, vol)");
+    public void addHistoryElement(String historyname) {
+        db.execSQL("INSERT INTO history (name) VALUES ('" + historyname + "')");
     }
 
     public String[] ausgabeAktie() throws SQLException {
@@ -121,9 +92,12 @@ public class DbManager extends SQLiteOpenHelper {
         //leer
     }
 
-    public String[] getElements(String ColumnName)  {
+    public String[] getElements(String ColumnName, String TableName)  {
         db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT "+ ColumnName + " FROM depot", null);
+        Cursor cursor = db.rawQuery("SELECT "+ ColumnName + " FROM " + TableName, null);
+        if (TableName.equals("depot")){
+           cursor  = db.rawQuery("SELECT DISTINCT "+ ColumnName + " FROM " + TableName, null);
+        }
         int amountResultRows = cursor.getCount();
         if (amountResultRows == 0) {
             return new String[]{};
@@ -138,5 +112,9 @@ public class DbManager extends SQLiteOpenHelper {
 
         cursor.close();
         return resultValues;
+    }
+
+    public void deleteHistoryElement(int id) {
+        db.execSQL("DELETE FROM history WHERE historyID="+id);
     }
 }

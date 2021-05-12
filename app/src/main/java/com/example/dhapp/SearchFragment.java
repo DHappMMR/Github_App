@@ -59,9 +59,13 @@ public class SearchFragment extends Fragment{
 
     private Button confirm;
     EditText stockInput;
+
+    DbManager dbM;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
@@ -73,7 +77,6 @@ public class SearchFragment extends Fragment{
         stockInput =  (EditText) view.findViewById(R.id.stockNameEditView);
         confirm.setOnClickListener(v -> {
             try{
-                System.out.println("Button Active");
                 hideKeyboard(getContext());
                 apiThread thread=new apiThread();
                 thread.start();
@@ -169,6 +172,7 @@ public class SearchFragment extends Fragment{
                 intent.putExtra("highest", highest);
                 intent.putExtra("lowest", lowest);
                 intent.putExtra("date", date);
+
 
 
                 startActivity(intent);

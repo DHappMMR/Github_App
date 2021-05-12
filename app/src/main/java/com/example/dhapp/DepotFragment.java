@@ -1,8 +1,5 @@
 package com.example.dhapp;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +20,6 @@ public class DepotFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_depot, container, false);
     }
 
@@ -31,40 +27,36 @@ public class DepotFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+
         //TODO: OnViewCreated, immer nur bei erster Erstellung oder bei jedem Aufruf? Crash wenn keine Aktie im Depot ist
 
         try {
-
-            ArrayList<String> Name = new ArrayList<String>();
-            ArrayList<String> Wert = new ArrayList<String>();
-            ArrayList<String> Change = new ArrayList<String>();
-
-            String[] ArrayName = new String[Name.size()];
-            String[] ArrayValue = new String[Name.size()];
-            String[] ArrayChange = new String[Name.size()];
 
             RecyclerView recyclerView;
 
             //TODO: Richtige Spalten- und Tabellennamen für Name, Wert und 24-Change
 
+            String[] ArrayName;
+            String[] ArrayValue;
+            String[] ArrayChange;
+
             String columnName = "name";
             String columnValue = "open";
             String columnChange = "change";
+            String tableName = "depot";
 
             DbManager dbManager = new DbManager(getActivity());
 
 
-            ArrayName = dbManager.getElements(columnName);
-            ArrayName = Name.toArray(ArrayName);
-            ArrayValue = dbManager.getElements(columnValue);
-            ArrayValue = Wert.toArray(ArrayValue);
-            ArrayChange= dbManager.getElements(columnChange);
-            ArrayChange = Change.toArray(ArrayChange);
+            ArrayName = dbManager.getElements(columnName, tableName);
+            ArrayValue = dbManager.getElements(columnValue, tableName);
+            ArrayChange= dbManager.getElements(columnChange, tableName);
 
-            recyclerView = view.findViewById(R.id.RecyclerView);
+            recyclerView = view.findViewById(R.id.RecyclerViewDepot);
 
-            MyAdapter myAdapter = new MyAdapter(requireContext(), ArrayName, ArrayValue, ArrayChange);
-            recyclerView.setAdapter(myAdapter);
+            MyAdapterDepot myAdapterDepot = new MyAdapterDepot(requireContext(), ArrayName, ArrayValue, ArrayChange);
+            recyclerView.setAdapter(myAdapterDepot);
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
 
@@ -72,4 +64,5 @@ public class DepotFragment extends Fragment {
             Log.i("Information", "Fail at starting DepotFragment");
         }
     }
+
 }
