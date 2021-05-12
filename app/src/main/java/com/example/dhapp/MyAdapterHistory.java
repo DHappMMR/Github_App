@@ -14,9 +14,9 @@ public class MyAdapterHistory extends RecyclerView.Adapter<MyAdapterHistory.MyVi
     String data1[];
     Context context;
 
-    public MyAdapterHistory(Context ct, String AktienName[]) {
+    public MyAdapterHistory(Context ct, String stockName[]) {
         context = ct;
-        data1 = AktienName;
+        data1 = stockName;
     }
 
     @NonNull
@@ -29,7 +29,7 @@ public class MyAdapterHistory extends RecyclerView.Adapter<MyAdapterHistory.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull MyAdapterHistory.MyViewHolder holder, int position) {
-        holder.AktienTitel.setText(data1[position]);
+        holder.stockNameView.setText(data1[position]);
     }
 
     @Override
@@ -39,11 +39,11 @@ public class MyAdapterHistory extends RecyclerView.Adapter<MyAdapterHistory.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView AktienTitel;
+        TextView stockNameView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            AktienTitel = itemView.findViewById(R.id.HistoryName);
+            stockNameView = itemView.findViewById(R.id.HistoryName);
         }
     }
 }

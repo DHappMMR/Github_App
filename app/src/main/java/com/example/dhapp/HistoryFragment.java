@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class HistoryFragment extends Fragment {
 
-    Button DeleteHistory;
 
     @Nullable
     @Override
@@ -46,8 +44,6 @@ public class HistoryFragment extends Fragment {
             recyclerView.setAdapter(myAdapterHistory);
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        } catch (Exception e) {
-//nüscht
-        }
+        } catch (Exception e) {e.printStackTrace();}
     }
 }

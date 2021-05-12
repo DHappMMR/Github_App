@@ -12,8 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class DepotFragment extends Fragment {
 
@@ -28,14 +26,10 @@ public class DepotFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-
-//TODO: OnViewCreated, immer nur bei erster Erstellung oder bei jedem Aufruf? Crash wenn keine Aktie im Depot ist
-
         try {
 
             RecyclerView recyclerView;
 
-//TODO: Richtige Spalten- und Tabellennamen für Name, Wert und 24-Change
 
             String[] ArrayName;
             String[] ArrayValue;
@@ -60,9 +54,7 @@ public class DepotFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
 
-        } catch (Exception e) {
-            Log.i("Information", "Fail at starting DepotFragment");
-        }
+        } catch (Exception e) {e.printStackTrace();}
     }
 
 }

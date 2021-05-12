@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 
 public class DbManager extends SQLiteOpenHelper {
@@ -18,9 +17,7 @@ public class DbManager extends SQLiteOpenHelper {
                 "stockDB.db",
                 null,
                 1);
-        Log.d("hallo1234", this.toString());
         db=getWritableDatabase();
-        //db.close();
     }
 
     @Override
@@ -46,7 +43,7 @@ public class DbManager extends SQLiteOpenHelper {
             db.execSQL("CREATE INDEX history_index ON history(name)");
 
 
-        } catch (SQLException e) { }
+        } catch (SQLException e) { e.printStackTrace();}
     }
 
     public void addDepotElement(String elementName, String elementSymbol, String elementOpen, String elementChange){
@@ -54,11 +51,11 @@ public class DbManager extends SQLiteOpenHelper {
 
     }
 
-    public void addHistoryElement(String historyname) {
-        db.execSQL("INSERT INTO history (name) VALUES ('" + historyname + "')");
+    public void addHistoryElement(String historyName) {
+        db.execSQL("INSERT INTO history (name) VALUES ('" + historyName + "')");
     }
 
-    public String[] ausgabeAktie() throws SQLException {
+    public String[] outputStock() throws SQLException {
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT valueID, symb, value " +
@@ -66,13 +63,12 @@ public class DbManager extends SQLiteOpenHelper {
                         " ORDER BY valueID ASC",
                 null);
 
-// Ergebnis der Query auswerten
-        int anzahlErgebnisZeilen = cursor.getCount();
-        if (anzahlErgebnisZeilen == 0) {
+        int resultLines = cursor.getCount();
+        if (resultLines == 0) {
             return new String[]{};
         }
 
-        String[] resultStrings = new String[anzahlErgebnisZeilen];
+        String[] resultStrings = new String[resultLines];
         int counter = 0;
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 

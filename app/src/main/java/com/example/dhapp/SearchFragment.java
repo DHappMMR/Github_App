@@ -1,53 +1,29 @@
 package com.example.dhapp;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.Charset;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class SearchFragment extends Fragment{
 
     private String name;
     private String input;
     private Intent intent;
-    private Intent intent2;
     private JSONObject answer;
     private JSONObject stockName;
     private String open;
@@ -56,11 +32,9 @@ public class SearchFragment extends Fragment{
     private String highest;
     private String lowest;
     private String date;
-
     private Button confirm;
-    EditText stockInput;
+    private EditText stockInput;
 
-    DbManager dbM;
 
     @Nullable
     @Override
@@ -136,8 +110,6 @@ public class SearchFragment extends Fragment{
                 stockName = ((MainActivity)getActivity()).getStockNameInformation(input);
 
                 name = stockName.getString("name");
-                System.out.println(name);
-
                 answer = ((MainActivity)getActivity()).getStockInformation(input);
                 JSONArray field = answer.getJSONArray("data");
                 JSONObject latestData = field.getJSONObject(0);
@@ -173,13 +145,8 @@ public class SearchFragment extends Fragment{
                 intent.putExtra("lowest", lowest);
                 intent.putExtra("date", date);
 
-
-
                 startActivity(intent);
-
-
-            } catch (IOException e){ //catch no Internet connection
-
+            } catch (IOException e){
                 e.printStackTrace();
 
                     NoConnectionFragment newFrag = new NoConnectionFragment();
@@ -189,7 +156,6 @@ public class SearchFragment extends Fragment{
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
 
-
             } catch (Exception e){
                 spelling_mistake newFrag = new spelling_mistake();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -197,7 +163,6 @@ public class SearchFragment extends Fragment{
                 fragmentTransaction.replace(R.id.fragment_search, newFrag,"tag");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-                System.out.println("ich habe grüne hoden pls help");
             }
         }
     }
