@@ -68,10 +68,6 @@ public class DbManager extends SQLiteOpenHelper {
             db.execSQL("INSERT INTO name (symbole, stockname) VALUES ('SAP', 'SAP SE ADR')");
             db.execSQL("INSERT INTO name (symbole, stockname) VALUES ('TSLA', 'Tesla Inc.')");
 
-
-
-
-
             Log.e("dbCorrect", db.getPath());
 
         } catch (SQLException e) {
@@ -127,7 +123,7 @@ public class DbManager extends SQLiteOpenHelper {
 
     public String[] getElements(String ColumnName)  {
         db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT "+ ColumnName + " FROM depot", null);
+        Cursor cursor = db.rawQuery("SELECT DISTINCT "+ ColumnName + " FROM depot", null);
         int amountResultRows = cursor.getCount();
         if (amountResultRows == 0) {
             return new String[]{};
@@ -142,5 +138,9 @@ public class DbManager extends SQLiteOpenHelper {
 
         cursor.close();
         return resultValues;
+    }
+
+    public void deleteHistoryElement(int id) {
+        db.execSQL("DELETE FROM value WHERE valueID="+id);
     }
 }
