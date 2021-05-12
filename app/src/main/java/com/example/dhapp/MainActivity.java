@@ -3,6 +3,7 @@ package com.example.dhapp;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -145,5 +146,27 @@ public class MainActivity extends AppCompatActivity  {
     protected JSONObject parseJSON (String json) throws Exception{
         JSONObject jsonObject = new JSONObject(json);
         return jsonObject;
+    }
+
+    protected void suchverlaufAnzeigen() {
+
+        String[] aktien;
+        String errorMsg;
+
+        try {
+            aktien = _datenbankManager.ausgabeAktie();
+        }
+        catch (Exception ex) {
+            errorMsg = "Exception bei ausgabeAktie() aufgetreten: " + ex;
+            return;
+        }
+        if (aktien == null || aktien.length == 0) {
+            return;
+        }
+        StringBuffer sb = new StringBuffer();
+        for(String bedeutung: aktien) {
+
+            sb.append(bedeutung).append("\n");
+        }
     }
 }

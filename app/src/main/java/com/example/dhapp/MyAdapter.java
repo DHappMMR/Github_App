@@ -32,8 +32,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.AktienTitel.setText(data1[position]);
-        holder.AktienWert.setText(data1[position]);
-        holder.AktienChange24.setText(data1[position]);
+        holder.AktienWert.setText(data2[position] );
+        holder.AktienChange24.setText(data3[position]+ "%");
      /*   if (Integer.parseInt(data3[position]) >= 0) {
             TextView percentage =
 

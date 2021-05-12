@@ -28,13 +28,6 @@ public class SingleStockOverview extends AppCompatActivity {
     static TextView DEPOTlowest;
     static TextView DEPOTdate;
 
-    static String ClearName;
-    static Double value;
-    static Double marketCap;
-    static Double volume;
-    static Double valueE;
-    static Double valueF;
-
     static String StringStockName;
     static String StringISIN;
     static String StringDEPOTValue;
@@ -85,9 +78,6 @@ public class SingleStockOverview extends AppCompatActivity {
         DEPOTdate = findViewById(R.id.DateValue);
         DEPOTdate.setText(date);
 
-        //TODO: Crasht wenn Aktie hinzugefügt wird, nicht immer. /n
-        // Evtl. Fix durch korrigieren des SQL Statements in addDepotElement-Klasse /n
-        // Erste Aktie funktioniert, zweite nicht
 
         addDepot = findViewById(R.id.addToDepot);
         addDepot.setOnClickListener(v -> {

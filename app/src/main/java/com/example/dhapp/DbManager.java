@@ -84,6 +84,36 @@ public class DbManager extends SQLiteOpenHelper {
 
     }
 
+    public void addHistoryElement(int id, String symbole, int val, int market, int vol) {
+        db.execSQL("INSERT INTO value (valueID, symb, value, marketCap, volume) VALUES (id, symbole, val, market, vol)");
+    }
+
+    public String[] ausgabeAktie() throws SQLException {
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT valueID, symb, value " +
+                        " FROM value " +
+                        " ORDER BY valueID ASC",
+                null);
+
+// Ergebnis der Query auswerten
+        int anzahlErgebnisZeilen = cursor.getCount();
+        if (anzahlErgebnisZeilen == 0) {
+            return new String[]{};
+        }
+
+        String[] resultStrings = new String[anzahlErgebnisZeilen];
+        int counter = 0;
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+
+            resultStrings[counter] = cursor.getString(0);
+            counter++;
+        }
+
+        cursor.close();
+
+        return resultStrings;
+    }
 
 
     @Override
