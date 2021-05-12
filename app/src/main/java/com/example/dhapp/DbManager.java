@@ -140,7 +140,4 @@ public class DbManager extends SQLiteOpenHelper {
         return resultValues;
     }
 
-    public void deleteHistoryElement(int id) {
-        db.execSQL("DELETE FROM value WHERE valueID="+id);
-    }
 }
