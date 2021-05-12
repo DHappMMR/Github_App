@@ -33,14 +33,6 @@ public class DepotFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button depotAPIrequest = view.findViewById(R.id.cardView);
-        depotAPIrequest.setOnClickListener(v -> {
-            try{
-
-            }catch (Exception e){
-            }
-
-        });
         //TODO: OnViewCreated, immer nur bei erster Erstellung oder bei jedem Aufruf? Crash wenn keine Aktie im Depot ist
 
         try {
