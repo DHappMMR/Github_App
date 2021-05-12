@@ -1,5 +1,6 @@
 package com.example.dhapp;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +33,14 @@ public class DepotFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Button depotAPIrequest = view.findViewById(R.id.cardView);
+        depotAPIrequest.setOnClickListener(v -> {
+            try{
+
+            }catch (Exception e){
+            }
+
+        });
         //TODO: OnViewCreated, immer nur bei erster Erstellung oder bei jedem Aufruf? Crash wenn keine Aktie im Depot ist
 
         try {
@@ -72,4 +82,5 @@ public class DepotFragment extends Fragment {
             Log.i("Information", "Fail at starting DepotFragment");
         }
     }
+
 }

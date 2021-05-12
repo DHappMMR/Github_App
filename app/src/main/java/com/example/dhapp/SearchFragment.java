@@ -73,7 +73,6 @@ public class SearchFragment extends Fragment{
         stockInput =  (EditText) view.findViewById(R.id.stockNameEditView);
         confirm.setOnClickListener(v -> {
             try{
-                System.out.println("Button Active");
                 hideKeyboard(getContext());
                 apiThread thread=new apiThread();
                 thread.start();
