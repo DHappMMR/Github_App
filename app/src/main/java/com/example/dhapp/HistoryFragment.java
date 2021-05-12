@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class HistoryFragment extends Fragment {
 
+    DbManager dbm;
+    TextView historyName;
+    Button deleteHistory;
 
     @Nullable
     @Override
@@ -26,6 +31,21 @@ public class HistoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         try {
+
+            dbm = new DbManager(getActivity());
+            String name;
+
+            historyName = view.findViewById(R.id.historyName);
+
+            name = historyName.getText().toString();
+            deleteHistory = view.findViewById(R.id.deleteHistoryButton);
+            deleteHistory.setOnClickListener(v -> {
+                try{
+                    dbm.deleteHistoryElement(name);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            });
 
             RecyclerView recyclerView;
 

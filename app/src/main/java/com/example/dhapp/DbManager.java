@@ -55,6 +55,10 @@ public class DbManager extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO history (name) VALUES ('" + historyName + "')");
     }
 
+    public void deleteHistoryElement(String historyverlauf) {
+        db.execSQL("DELETE FROM history WHERE name = '" + historyverlauf + "'");
+    }
+
     public String[] outputStock() throws SQLException {
 
         SQLiteDatabase db = getReadableDatabase();
@@ -107,9 +111,5 @@ public class DbManager extends SQLiteOpenHelper {
 
         cursor.close();
         return resultValues;
-    }
-
-    public void deleteHistoryElement(int id) {
-        db.execSQL("DELETE FROM history WHERE historyID="+id);
     }
 }

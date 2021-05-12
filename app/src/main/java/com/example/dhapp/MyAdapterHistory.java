@@ -43,7 +43,7 @@ public class MyAdapterHistory extends RecyclerView.Adapter<MyAdapterHistory.MyVi
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            stockNameView = itemView.findViewById(R.id.HistoryName);
+            stockNameView = itemView.findViewById(R.id.historyName);
         }
     }
 }
