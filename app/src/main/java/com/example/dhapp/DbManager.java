@@ -84,6 +84,10 @@ public class DbManager extends SQLiteOpenHelper {
 
     }
 
+    public void deleteHistoryElement(int id) {
+        db.execSQL("DELETE FROM value WHERE valueID="+id);
+    }
+
     public void addHistoryElement(int id, String symbole, int val, int market, int vol) {
         db.execSQL("INSERT INTO value (valueID, symb, value, marketCap, volume) VALUES (id, symbole, val, market, vol)");
     }
