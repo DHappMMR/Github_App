@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,11 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class HistoryFragment extends Fragment {
 
+    DbManager dbm;
+    TextView historyName;
+
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_impressum, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_history, container, false);
     }
 
     @Override
@@ -26,6 +30,9 @@ public class HistoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         try {
+            dbm = new DbManager(getActivity());
+
+            historyName = view.findViewById(R.id.historyName);
 
             RecyclerView recyclerView;
 
@@ -44,8 +51,7 @@ public class HistoryFragment extends Fragment {
             recyclerView.setAdapter(myAdapterHistory);
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        } catch (Exception e) {
-            //nüscht
-        }
+        } catch (Exception e) {e.printStackTrace();}
     }
+
 }

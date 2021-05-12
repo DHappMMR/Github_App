@@ -5,11 +5,11 @@
     android:id="@+id/fragment_search">
 
     <TextView
-        android:id="@+id/aktienSuche"
+        android:id="@+id/searchStock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="@string/aktiensuche"
+        android:text="Search Stock"
         android:textColor="#2196F3"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -25,7 +25,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/aktienSuche">
+        app:layout_constraintTop_toBottomOf="@+id/searchStock">
 
         <EditText
             android:id="@+id/stockNameEditView"

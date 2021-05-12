@@ -18,9 +18,7 @@ public class DbManager extends SQLiteOpenHelper {
                 "stockDB.db",
                 null,
                 1);
-        Log.d("hallo1234", this.toString());
         db=getWritableDatabase();
-        //db.close();
     }
 
     @Override
@@ -40,14 +38,13 @@ public class DbManager extends SQLiteOpenHelper {
 
             db.execSQL("CREATE TABLE history (" +
                     "historyID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "name TEXT NOT NULL)"
+                    "name TEXT)"
             );
 
             db.execSQL("CREATE INDEX history_index ON history(name)");
 
 
-        } catch (SQLException e) {
-        }
+        } catch (SQLException e) { e.printStackTrace();}
     }
 
     public void addDepotElement(String elementName, String elementSymbol, String elementOpen, String elementChange){
@@ -55,11 +52,15 @@ public class DbManager extends SQLiteOpenHelper {
 
     }
 
-    public void addHistoryElement(String historyname) {
-        db.execSQL("INSERT INTO history (name) VALUES ('" + historyname + "')");
+    public void addHistoryElement(String historyName) {
+        db.execSQL("INSERT INTO history (name) VALUES ('" + historyName + "')");
     }
 
-    public String[] ausgabeAktie() throws SQLException {
+    public void deleteHistoryElement(String historyverlauf) {
+        db.execSQL("DELETE FROM history WHERE name = '" + historyverlauf + "'");
+    }
+
+    public String[] outputStock() throws SQLException {
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT valueID, symb, value " +
@@ -67,13 +68,12 @@ public class DbManager extends SQLiteOpenHelper {
                         " ORDER BY valueID ASC",
                 null);
 
-// Ergebnis der Query auswerten
-        int anzahlErgebnisZeilen = cursor.getCount();
-        if (anzahlErgebnisZeilen == 0) {
+        int resultLines = cursor.getCount();
+        if (resultLines == 0) {
             return new String[]{};
         }
 
-        String[] resultStrings = new String[anzahlErgebnisZeilen];
+        String[] resultStrings = new String[resultLines];
         int counter = 0;
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 
@@ -92,11 +92,11 @@ public class DbManager extends SQLiteOpenHelper {
         //leer
     }
 
-    public String[] getElements(String ColumnName, String TableName)  {
+    public String[] getElements(String ColumnName, String TableName) {
         db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT "+ ColumnName + " FROM " + TableName, null);
         if (TableName.equals("depot")){
-           cursor  = db.rawQuery("SELECT DISTINCT "+ ColumnName + " FROM " + TableName, null);
+            cursor = db.rawQuery("SELECT DISTINCT "+ ColumnName + " FROM " + TableName, null);
         }
         int amountResultRows = cursor.getCount();
         if (amountResultRows == 0) {
@@ -112,9 +112,5 @@ public class DbManager extends SQLiteOpenHelper {
 
         cursor.close();
         return resultValues;
-    }
-
-    public void deleteHistoryElement(int id) {
-        db.execSQL("DELETE FROM history WHERE historyID="+id);
     }
 }

@@ -14,11 +14,11 @@ public class MyAdapterDepot extends RecyclerView.Adapter<MyAdapterDepot.MyViewHo
     String data1[], data2[], data3[];
     Context context;
 
-    public MyAdapterDepot(Context ct, String AktienName[], String AktienValue[], String AktienChange[]) {
+    public MyAdapterDepot(Context ct, String stockName[], String stockValue[], String stockChange[]) {
         context = ct;
-        data1 = AktienName;
-        data2 = AktienValue;
-        data3 = AktienChange;
+        data1 = stockName;
+        data2 = stockValue;
+        data3 = stockChange;
     }
 
     @NonNull
@@ -31,14 +31,9 @@ public class MyAdapterDepot extends RecyclerView.Adapter<MyAdapterDepot.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.AktienTitel.setText(data1[position]);
-        holder.AktienWert.setText(data2[position] );
-        holder.AktienChange24.setText(data3[position]+ "%");
-     /*   if (Integer.parseInt(data3[position]) >= 0) {
-            TextView percentage =
-
-
-        }*/
+        holder.stockNameView.setText(data1[position]);
+        holder.stockValueView.setText(data2[position] );
+        holder.stockChangeView.setText(data3[position]+ "%");
     }
 
     @Override
@@ -48,16 +43,16 @@ public class MyAdapterDepot extends RecyclerView.Adapter<MyAdapterDepot.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView AktienTitel;
-        TextView AktienWert;
-        TextView AktienChange24;
+        TextView stockNameView;
+        TextView stockValueView;
+        TextView stockChangeView;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            AktienTitel = itemView.findViewById(R.id.Headline);
-            AktienWert = itemView.findViewById(R.id.Value);
-            AktienChange24 = itemView.findViewById(R.id.Percentage);
+            stockNameView = itemView.findViewById(R.id.Headline);
+            stockValueView = itemView.findViewById(R.id.Value);
+            stockChangeView = itemView.findViewById(R.id.Percentage);
         }
     }
 }

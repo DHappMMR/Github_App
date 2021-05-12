@@ -4,14 +4,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SingleStockOverview extends AppCompatActivity {
-    //merge-Test
     private TextView showStockName;
 
     static TextView StockName;
@@ -35,7 +33,6 @@ public class SingleStockOverview extends AppCompatActivity {
     private Button addDepot;
     private DbManager _datenbankManager;
 
-    //private EditText searchText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +40,7 @@ public class SingleStockOverview extends AppCompatActivity {
         setContentView(R.layout.single_stock_overview);
 
         String name = getIntent().getStringExtra("name");
-        String symbol = getIntent().getStringExtra("symbol");
+        String symbol = getIntent().getStringExtra("symbol").toUpperCase().toLowerCase().toUpperCase();
         String open = getIntent().getStringExtra("open");
         String marketCap = getIntent().getStringExtra("marketCap");
         String twentyFour = getIntent().getStringExtra("twentyFour");

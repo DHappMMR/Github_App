@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity  {
 
 
     public TextView showStockName;
-    private String ISIN;
     private static String url="http://api.marketstack.com/v1/eod?access_key=86a7719f8f68bb10f9cbef8614745331&symbols=";
     private static String apiURLName;
     private DbManager _datenbankManager;
@@ -45,12 +44,6 @@ public class MainActivity extends AppCompatActivity  {
         }
 
     }
-
-  /*  public void changeActivityToSSO() {
-        //StockName = editText.getText().toString();
-        Intent intent = new Intent(this, SingleStockOverview.class);
-        startActivity(intent);
-    }*/
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -75,14 +68,14 @@ public class MainActivity extends AppCompatActivity  {
     };
 
 
-    protected JSONObject getStockInformation(String ISIN) throws Exception {
+    protected JSONObject getStockInformation(String symbol) throws Exception {
         URL link = null;
         HttpURLConnection conn = null;
         String object="";
         JSONObject answer = null;
-        ISIN.toUpperCase();
+        symbol.toUpperCase();
 
-        link = new URL(url+ISIN);
+        link = new URL(url+symbol);
         conn = (HttpURLConnection) link.openConnection();
         conn.setRequestMethod("GET");
 
@@ -138,25 +131,4 @@ public class MainActivity extends AppCompatActivity  {
         return jsonObject;
     }
 
-    protected void suchverlaufAnzeigen() {
-
-        String[] aktien;
-        String errorMsg;
-
-        try {
-            aktien = _datenbankManager.ausgabeAktie();
-        }
-        catch (Exception ex) {
-            errorMsg = "Exception bei ausgabeAktie() aufgetreten: " + ex;
-            return;
-        }
-        if (aktien == null || aktien.length == 0) {
-            return;
-        }
-        StringBuffer sb = new StringBuffer();
-        for(String bedeutung: aktien) {
-
-            sb.append(bedeutung).append("\n");
-        }
-    }
 }
