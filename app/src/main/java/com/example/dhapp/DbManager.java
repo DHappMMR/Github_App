@@ -39,7 +39,9 @@ public class DbManager extends SQLiteOpenHelper {
             db.execSQL("CREATE TABLE depot (" +
                     "depotID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "name TEXT NOT NULL," +
-                    "symbol TEXT NOT NULL)"
+                    "symbol TEXT NOT NULL," +
+                    "currentvalue TEXT NOT NULL," +
+                    "change TEXT NOT NULL)"
             );
             db.execSQL("CREATE INDEX depot_index ON depot(symbol)");
             db.execSQL("INSERT INTO depot (name, symbol) VALUES ('Apple', 'AAPl')");
