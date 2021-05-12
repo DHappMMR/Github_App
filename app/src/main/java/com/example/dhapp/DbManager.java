@@ -26,15 +26,16 @@ public class DbManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d("marcsLog", this.toString());
 
         try {
-
+/*
             db.execSQL("CREATE TABLE name (" +
                     "nameID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "symbole TEXT NOT NULL, " +
                     "stockname TEXT)"
             );
+
+            db.execSQL("CREATE INDEX name_index ON name(symbole)");*/
 
             db.execSQL("CREATE TABLE depot (" +
                     "depotID INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -43,12 +44,16 @@ public class DbManager extends SQLiteOpenHelper {
                     "open TEXT NOT NULL," +
                     "change TEXT NOT NULL)"
             );
+
             db.execSQL("CREATE INDEX depot_index ON depot(symbol)");
-            db.execSQL("INSERT INTO depot (name, symbol) VALUES ('Apple', 'AAPl')");
 
+            db.execSQL("CREATE TABLE history (" +
+                    "historyID TEXT NOT NULL," +
+                    "name TEXT NOT NULL)"
+            );
 
-            db.execSQL("CREATE INDEX name_index ON name(symbole)");
-
+            db.execSQL("CREATE INDEX history_index ON history(name)");
+/*
             db.execSQL("CREATE TABLE value ( " +
                     "valueID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "symb TEXT NOT NULL," +
@@ -58,20 +63,9 @@ public class DbManager extends SQLiteOpenHelper {
                     "FOREIGN KEY (symb) REFERENCES name(symbole) )"
             );
 
-            db.execSQL("CREATE INDEX value_index ON value(symb)");
-
-            db.execSQL("INSERT INTO value (symb, value, marketCap, volume) VALUES ('APPL', 108, 1850000000, 6000)");
-            db.execSQL("INSERT INTO value (symb, value, marketCap, volume) VALUES ('SAP', 1, 2, 3)");
-            db.execSQL("INSERT INTO value (symb, value, marketCap, volume) VALUES ('TSLA', 4, 5, 6)");
-
-            db.execSQL("INSERT INTO name (symbole, stockname) VALUES ('APPL', 'Apple_Inc')");
-            db.execSQL("INSERT INTO name (symbole, stockname) VALUES ('SAP', 'SAP SE ADR')");
-            db.execSQL("INSERT INTO name (symbole, stockname) VALUES ('TSLA', 'Tesla Inc.')");
-
-            Log.e("dbCorrect", db.getPath());
+            db.execSQL("CREATE INDEX value_index ON value(symb)");*/
 
         } catch (SQLException e) {
-            Log.d("dbFail", "Exception bei Create Methode" + e);
         }
     }
 
@@ -80,8 +74,8 @@ public class DbManager extends SQLiteOpenHelper {
 
     }
 
-    public void addHistoryElement(int id, String symbole, int val, int market, int vol) {
-        db.execSQL("INSERT INTO value (valueID, symb, value, marketCap, volume) VALUES (id, symbole, val, market, vol)");
+    public void addHistoryElement(String name) {
+        db.execSQL("INSERT INTO history (name) VALUES ('" + name + "')");
     }
 
     public String[] ausgabeAktie() throws SQLException {

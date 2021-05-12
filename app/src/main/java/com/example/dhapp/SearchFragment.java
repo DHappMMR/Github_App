@@ -59,9 +59,13 @@ public class SearchFragment extends Fragment{
 
     private Button confirm;
     EditText stockInput;
+
+    DbManager dbM;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        dbM = new DbManager(getActivity());
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
@@ -169,6 +173,7 @@ public class SearchFragment extends Fragment{
                 intent.putExtra("lowest", lowest);
                 intent.putExtra("date", date);
 
+                dbM.addHistoryElement(name);
 
                 startActivity(intent);
 
