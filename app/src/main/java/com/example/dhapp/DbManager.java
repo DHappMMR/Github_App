@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import javax.xml.namespace.QName;
 
 public class DbManager extends SQLiteOpenHelper {
 
@@ -28,14 +27,6 @@ public class DbManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         try {
-/*
-            db.execSQL("CREATE TABLE name (" +
-                    "nameID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "symbole TEXT NOT NULL, " +
-                    "stockname TEXT)"
-            );
-
-            db.execSQL("CREATE INDEX name_index ON name(symbole)");*/
 
             db.execSQL("CREATE TABLE depot (" +
                     "depotID INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -48,22 +39,12 @@ public class DbManager extends SQLiteOpenHelper {
             db.execSQL("CREATE INDEX depot_index ON depot(symbol)");
 
             db.execSQL("CREATE TABLE history (" +
-                    "historyID TEXT NOT NULL," +
+                    "historyID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "name TEXT NOT NULL)"
             );
 
             db.execSQL("CREATE INDEX history_index ON history(name)");
-/*
-            db.execSQL("CREATE TABLE value ( " +
-                    "valueID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "symb TEXT NOT NULL," +
-                    "value INTEGER," +
-                    "marketCap INTEGER," +
-                    "volume INTEGER," +
-                    "FOREIGN KEY (symb) REFERENCES name(symbole) )"
-            );
 
-            db.execSQL("CREATE INDEX value_index ON value(symb)");*/
 
         } catch (SQLException e) {
         }
@@ -74,8 +55,8 @@ public class DbManager extends SQLiteOpenHelper {
 
     }
 
-    public void addHistoryElement(String name) {
-        db.execSQL("INSERT INTO history (name) VALUES ('" + name + "')");
+    public void addHistoryElement(String historyname) {
+        db.execSQL("INSERT INTO history (name) VALUES ('" + historyname + "')");
     }
 
     public String[] ausgabeAktie() throws SQLException {
@@ -131,6 +112,6 @@ public class DbManager extends SQLiteOpenHelper {
     }
 
     public void deleteHistoryElement(int id) {
-        db.execSQL("DELETE FROM value WHERE valueID="+id);
+        db.execSQL("DELETE FROM history WHERE historyID="+id);
     }
 }

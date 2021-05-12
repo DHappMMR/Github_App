@@ -65,7 +65,7 @@ public class SearchFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        dbM = new DbManager(getActivity());
+
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
@@ -132,7 +132,7 @@ public class SearchFragment extends Fragment{
         @Override
         public void run(){
             try{
-                input = stockInput.getText().toString();
+                input = stockInput.getText().toString().toUpperCase();
                 stockName = ((MainActivity)getActivity()).getStockNameInformation(input);
 
                 name = stockName.getString("name");
@@ -173,7 +173,7 @@ public class SearchFragment extends Fragment{
                 intent.putExtra("lowest", lowest);
                 intent.putExtra("date", date);
 
-                dbM.addHistoryElement(name);
+
 
                 startActivity(intent);
 

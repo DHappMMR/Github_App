@@ -76,12 +76,11 @@ public class SingleStockOverview extends AppCompatActivity {
         DEPOTdate = findViewById(R.id.DateValue);
         DEPOTdate.setText(date);
 
-        //searchText = findViewById(R.id.stockNameEditView);
 
         addDepot = findViewById(R.id.addToDepot);
+        _datenbankManager.addHistoryElement(name);
         addDepot.setOnClickListener(v -> {
             _datenbankManager.addDepotElement(name, symbol, open, twentyFour);
-            //searchText.getText().clear();
             finish();
         });
 

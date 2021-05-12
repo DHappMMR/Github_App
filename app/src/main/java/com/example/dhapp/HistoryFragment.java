@@ -37,7 +37,7 @@ public class HistoryFragment extends Fragment {
 
             HistoryName = dbManager.getElements(columnName);
 
-            recyclerView = view.findViewById(R.id.RecyclerViewDepot);
+            recyclerView = view.findViewById(R.id.RecyclerViewHistory);
 
             MyAdapterHistory myAdapterHistory = new MyAdapterHistory(requireContext(), HistoryName);
             recyclerView.setAdapter(myAdapterHistory);
