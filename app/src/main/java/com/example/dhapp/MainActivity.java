@@ -1,32 +1,22 @@
 package com.example.dhapp;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.Charset;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -75,7 +65,7 @@ public class MainActivity extends AppCompatActivity  {
                     selectedFragment = new SearchFragment();
                     break;
                 case R.id.nav_impressum:
-                    selectedFragment = new ImpressumFragment();
+                    selectedFragment = new HistoryFragment();
                     break;
             }
 
