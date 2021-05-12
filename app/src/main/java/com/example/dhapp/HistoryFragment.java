@@ -32,10 +32,11 @@ public class HistoryFragment extends Fragment {
             String[] HistoryName;
 
             String columnName = "name";
+            String tableName = "history";
 
             DbManager dbManager = new DbManager(getActivity());
 
-            HistoryName = dbManager.getElements(columnName);
+            HistoryName = dbManager.getElements(columnName, tableName);
 
             recyclerView = view.findViewById(R.id.RecyclerViewHistory);
 

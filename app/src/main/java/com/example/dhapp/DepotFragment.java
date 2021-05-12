@@ -44,13 +44,14 @@ public class DepotFragment extends Fragment {
             String columnName = "name";
             String columnValue = "open";
             String columnChange = "change";
+            String tableName = "depot";
 
             DbManager dbManager = new DbManager(getActivity());
 
 
-            ArrayName = dbManager.getElements(columnName);
-            ArrayValue = dbManager.getElements(columnValue);
-            ArrayChange= dbManager.getElements(columnChange);
+            ArrayName = dbManager.getElements(columnName, tableName);
+            ArrayValue = dbManager.getElements(columnValue, tableName);
+            ArrayChange= dbManager.getElements(columnChange, tableName);
 
             recyclerView = view.findViewById(R.id.RecyclerViewDepot);
 
