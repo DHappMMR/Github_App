@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="92,59 €"
+                android:text="error"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/Percentage"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Siemens AG"
+                android:text="error"
                 android:textColor="#2196F3"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -47,21 +47,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
-                android:text="+5%"
-                android:textColor="#4CAF50"
+                android:text="error"
+                android:textColor="@color/grey"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/GespeicherterWert"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gespeicherter Wert:"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/Value"
-                app:layout_constraintStart_toEndOf="@+id/Headline"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

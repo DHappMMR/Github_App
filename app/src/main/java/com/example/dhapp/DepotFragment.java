@@ -36,29 +36,34 @@ public class DepotFragment extends Fragment {
         try {
 
             ArrayList<String> Name = new ArrayList<String>();
+            ArrayList<String> Wert = new ArrayList<String>();
+            ArrayList<String> Change = new ArrayList<String>();
 
             String[] ArrayName = new String[Name.size()];
+            String[] ArrayValue = new String[Name.size()];
+            String[] ArrayChange = new String[Name.size()];
 
             RecyclerView recyclerView;
 
             //TODO: Richtige Spalten- und Tabellennamen für Name, Wert und 24-Change
 
-            String SpalteName = "name";
+            String columnName = "name";
+            String columnValue = "open";
+            String columnChange = "change";
 
             DbManager dbManager = new DbManager(getActivity());
-            Log.i("Information", "Here");
-            ArrayName = dbManager.getElements(SpalteName);
+
+
+            ArrayName = dbManager.getElements(columnName);
             ArrayName = Name.toArray(ArrayName);
-/*
-        ArrayName = getResources().getStringArray(R.array.ArrayName);
-        ArrayWert = getResources().getStringArray(R.array.Wert);
-        ArrayChange = getResources().getStringArray(R.array.Change);
-*/
-            //TODO: Werte werden nicht in RecyclerView angezeigt, nur blank
+            ArrayValue = dbManager.getElements(columnValue);
+            ArrayValue = Wert.toArray(ArrayValue);
+            ArrayChange= dbManager.getElements(columnChange);
+            ArrayChange = Change.toArray(ArrayChange);
 
             recyclerView = view.findViewById(R.id.RecyclerView);
 
-            MyAdapter myAdapter = new MyAdapter(requireContext(), ArrayName);
+            MyAdapter myAdapter = new MyAdapter(requireContext(), ArrayName, ArrayValue, ArrayChange);
             recyclerView.setAdapter(myAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 

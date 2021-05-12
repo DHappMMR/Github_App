@@ -39,7 +39,9 @@ public class DbManager extends SQLiteOpenHelper {
             db.execSQL("CREATE TABLE depot (" +
                     "depotID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "name TEXT NOT NULL," +
-                    "symbol TEXT NOT NULL)"
+                    "symbol TEXT NOT NULL," +
+                    "open TEXT NOT NULL," +
+                    "change TEXT NOT NULL)"
             );
             db.execSQL("CREATE INDEX depot_index ON depot(symbol)");
             db.execSQL("INSERT INTO depot (name, symbol) VALUES ('Apple', 'AAPl')");
@@ -77,11 +79,41 @@ public class DbManager extends SQLiteOpenHelper {
         }
     }
 
-    public void addDepotElement(String elementName, String elementSymbol){
-        db.execSQL("INSERT INTO depot (name, symbol) VALUES ('" + elementName + "', '" + elementSymbol + "')");
+    public void addDepotElement(String elementName, String elementSymbol, String elementOpen, String elementChange){
+        db.execSQL("INSERT INTO depot (name, symbol, open, change) VALUES ('" + elementName + "', '" + elementSymbol + "', '" + elementOpen + "', '" + elementChange + "')");
 
     }
 
+    public void addHistoryElement(int id, String symbole, int val, int market, int vol) {
+        db.execSQL("INSERT INTO value (valueID, symb, value, marketCap, volume) VALUES (id, symbole, val, market, vol)");
+    }
+
+    public String[] ausgabeAktie() throws SQLException {
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT valueID, symb, value " +
+                        " FROM value " +
+                        " ORDER BY valueID ASC",
+                null);
+
+// Ergebnis der Query auswerten
+        int anzahlErgebnisZeilen = cursor.getCount();
+        if (anzahlErgebnisZeilen == 0) {
+            return new String[]{};
+        }
+
+        String[] resultStrings = new String[anzahlErgebnisZeilen];
+        int counter = 0;
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+
+            resultStrings[counter] = cursor.getString(0);
+            counter++;
+        }
+
+        cursor.close();
+
+        return resultStrings;
+    }
 
 
     @Override
