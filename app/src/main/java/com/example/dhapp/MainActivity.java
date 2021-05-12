@@ -2,6 +2,7 @@ package com.example.dhapp;
 
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -40,7 +41,9 @@ public class MainActivity extends AppCompatActivity  {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         _datenbankManager = new DbManager(this);
+        Log.d("marcsLog6", this.toString());
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity  {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchFragment()).commit();
         }
 
+        suchverlaufAnzeigen(); //TODO delete
     }
 
 
@@ -145,5 +149,43 @@ public class MainActivity extends AppCompatActivity  {
     protected JSONObject parseJSON (String json) throws Exception{
         JSONObject jsonObject = new JSONObject(json);
         return jsonObject;
+    }
+
+
+
+    /**
+     * Anzeigen des Suchverlaufs
+     */
+    protected void suchverlaufAnzeigen() {
+
+        // *** Eigentliche DB-Query ausführen ***
+        String[] aktien;
+        String errorMsg;
+
+        try {
+            aktien = _datenbankManager.ausgabeAktie();
+        }
+        catch (Exception ex) {
+            errorMsg = "Exception bei ausgabeAktie() aufgetreten: " + ex;
+            return;
+        }
+
+
+        if (aktien == null || aktien.length == 0) {
+            //jeweiliges Textfeld noch ergänzen
+            //_textViewBedeutungen.setText("");
+            //showToast("Abkürzung '" + suchString + "' nicht gefunden.");
+            Log.d("TEST Suchverlauf", aktien.toString());
+            return;
+        }
+
+        // *** Ergebnis-Treffer darstellen ***
+        StringBuffer sb = new StringBuffer();
+        for(String bedeutung: aktien) {
+
+            sb.append(bedeutung).append("\n");
+        }
+        Log.d("TEST2", sb.toString());
+        //_textViewBedeutungen.setText(sb.toString());
     }
 }

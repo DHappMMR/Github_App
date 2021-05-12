@@ -1,6 +1,7 @@
 package com.example.dhapp;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -19,8 +20,9 @@ public class DbManager extends SQLiteOpenHelper {
                 null,
                 1);
         Log.d("hallo1234", this.toString());
-        db=getWritableDatabase();
+        db = getWritableDatabase();
         //db.close();
+        Log.d("marcsLog8", this.toString());
     }
 
     @Override
@@ -29,6 +31,7 @@ public class DbManager extends SQLiteOpenHelper {
         Log.d("marcsLog", this.toString());
 
         try {
+            Log.d("marcsLog2", this.toString());
 
             db.execSQL("CREATE TABLE name (" +
                     "nameID INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -41,6 +44,8 @@ public class DbManager extends SQLiteOpenHelper {
                     "name TEXT NOT NULL," +
                     "symbol TEXT NOT NULL)"
             );
+
+            Log.d("marcsLog3", this.toString());
 
             db.execSQL("CREATE INDEX name_index ON name(symbole)");
 
@@ -72,10 +77,41 @@ public class DbManager extends SQLiteOpenHelper {
         }
     }
 
-    public void addDepotElement(String elementName, String elementSymbol){
+    public void addDepotElement(String elementName, String elementSymbol) {
         db.execSQL("INSERT INTO depot (name, symbol) VALUES (elementName, elementSymbol)");
     }
 
+
+    public void addHistoryElement(int id, String symbole, int val, int market, int vol) {
+        db.execSQL("INSERT INTO value (valueID, symb, value, marketCap, volume) VALUES (id, symbole, val, market, vol)");
+    }
+
+    public String[] ausgabeAktie() throws SQLException {
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT valueID, symb, value " +
+                        "  FROM value " +
+                        "  ORDER BY valueID ASC",
+                null);
+
+        // Ergebnis der Query auswerten
+        int anzahlErgebnisZeilen = cursor.getCount();
+        if (anzahlErgebnisZeilen == 0) {
+            return new String[]{};
+        }
+
+        String[] resultStrings = new String[anzahlErgebnisZeilen];
+        int counter = 0;
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+
+            resultStrings[counter] = cursor.getString(0);
+            counter++;
+        }
+
+        cursor.close();
+
+        return resultStrings;
+    }
 
 
     @Override
