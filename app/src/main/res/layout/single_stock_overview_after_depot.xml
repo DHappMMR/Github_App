@@ -6,49 +6,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <TextView
-        android:id="@+id/ShowStockName"
+        android:id="@+id/ShowStockNameDepot"
         android:layout_width="120dp"
         android:layout_height="32dp"
-        android:gravity="center"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
+        android:gravity="center"
         android:text="Stock ISIN"
         android:textColor="#2196F3"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/Buffer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/BufferDepot"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/ShowClearName"
+        android:id="@+id/ShowClearNameDepot"
         android:layout_width="120dp"
         android:layout_height="32dp"
-        android:gravity="center"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="12sp"
-        android:autoSizeMaxTextSize="100sp"
-        android:autoSizeStepGranularity="2sp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
+        android:autoSizeMaxTextSize="100sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
         android:text="Stock Name"
         android:textColor="#2196F3"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/Buffer"
+        app:layout_constraintEnd_toStartOf="@+id/BufferDepot"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
-        android:id="@+id/CurrentStockValueString"
+        android:id="@+id/CurrentStockValueStringDepot"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Current Stock Value"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ShowStockName" />
+        app:layout_constraintTop_toBottomOf="@+id/ShowStockNameDepot" />
 
     <TextView
-        android:id="@+id/CurrentStockValue"
+        android:id="@+id/CurrentStockValueDepot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -56,20 +56,20 @@
         android:layout_marginEnd="32dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ShowStockName" />
+        app:layout_constraintTop_toBottomOf="@+id/ShowStockNameDepot" />
 
     <TextView
-        android:id="@+id/MarketCapString"
+        android:id="@+id/MarketCapStringDepot"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Market Capitalization"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CurrentStockValueString" />
+        app:layout_constraintTop_toBottomOf="@+id/CurrentStockValueStringDepot" />
 
     <TextView
-        android:id="@+id/MarketCapStringValue"
+        android:id="@+id/MarketCapStringValueDepot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -77,20 +77,20 @@
         android:layout_marginEnd="32dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CurrentStockValue" />
+        app:layout_constraintTop_toBottomOf="@+id/CurrentStockValueDepot" />
 
     <TextView
-        android:id="@+id/Change24HoursString"
+        android:id="@+id/Change24HoursStringDepot"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Change 24 hours"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MarketCapString" />
+        app:layout_constraintTop_toBottomOf="@+id/MarketCapStringDepot" />
 
     <TextView
-        android:id="@+id/Change24HoursValue"
+        android:id="@+id/Change24HoursValueDepot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -98,20 +98,20 @@
         android:layout_marginEnd="32dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MarketCapStringValue" />
+        app:layout_constraintTop_toBottomOf="@+id/MarketCapStringValueDepot" />
 
     <TextView
-        android:id="@+id/Volume"
+        android:id="@+id/VolumeDepot"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Volume"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Change24HoursString" />
+        app:layout_constraintTop_toBottomOf="@+id/Change24HoursStringDepot" />
 
     <TextView
-        android:id="@+id/VolumeValue"
+        android:id="@+id/VolumeValueDepot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -119,20 +119,20 @@
         android:layout_marginEnd="32dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Change24HoursValue" />
+        app:layout_constraintTop_toBottomOf="@+id/Change24HoursValueDepot" />
 
     <TextView
-        android:id="@+id/Highest"
+        android:id="@+id/HighestDepot"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Highest Value"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Volume" />
+        app:layout_constraintTop_toBottomOf="@+id/VolumeDepot" />
 
     <TextView
-        android:id="@+id/HighestValue"
+        android:id="@+id/HighestValueDepot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -140,20 +140,20 @@
         android:layout_marginEnd="32dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Volume" />
+        app:layout_constraintTop_toBottomOf="@+id/VolumeDepot" />
 
     <TextView
-        android:id="@+id/Lowest"
+        android:id="@+id/LowestDepot"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Lowest Value"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Highest" />
+        app:layout_constraintTop_toBottomOf="@+id/HighestDepot" />
 
     <TextView
-        android:id="@+id/LowestValue"
+        android:id="@+id/LowestValueDepot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -161,20 +161,20 @@
         android:layout_marginEnd="32dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/HighestValue" />
+        app:layout_constraintTop_toBottomOf="@+id/HighestValueDepot" />
 
     <TextView
-        android:id="@+id/Date"
+        android:id="@+id/DateDepot"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Date"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Lowest" />
+        app:layout_constraintTop_toBottomOf="@+id/LowestDepot" />
 
     <TextView
-        android:id="@+id/DateValue"
+        android:id="@+id/DateValueDepot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -182,10 +182,10 @@
         android:layout_marginEnd="32dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LowestValue" />
+        app:layout_constraintTop_toBottomOf="@+id/LowestValueDepot" />
 
     <TextView
-        android:id="@+id/Buffer"
+        android:id="@+id/BufferDepot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -210,9 +210,10 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/BackButton"
+                android:id="@+id/BackButtonDepot"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginStart="32dp"
                 android:backgroundTint="#2196F3"
                 android:onClick="goBack"
                 android:text="Back"
@@ -222,6 +223,7 @@
                 android:id="@+id/DeleteFromDepot"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="32dp"
                 android:backgroundTint="#2196F3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/delete" />

@@ -17,25 +17,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import static java.security.AccessController.getContext;
 
 public class SingleStockOverviewDepot extends AppCompatActivity {
+
     private TextView showStockName;
+    TextView StockName;
+    TextView ISIN;
+    TextView DEPOTvalue;
+    TextView DEPOTmarketcap;
+    TextView DEPOTtwentyFour;
+    TextView DEPOTvolume;
+    TextView DEPOThighest;
+    TextView DEPOTlowest;
+    TextView DEPOTdate;
 
-    static TextView StockName;
-    static TextView ISIN;
-    static TextView DEPOTvalue;
-    static TextView DEPOTmarketcap;
-    static TextView DEPOTtwentyFour;
-    static TextView DEPOTvolume;
-    static TextView DEPOThighest;
-    static TextView DEPOTlowest;
-    static TextView DEPOTdate;
-
-    static String StringStockName;
-    static String StringISIN;
-    static String StringDEPOTValue;
-    static String StringDEPOTcap;
-    static String StringDEPOTvolume;
-    static String StringDEPOTvalueE;
-    static String StringDEPOTvalueF;
+    String StringStockName;
+    String StringISIN;
+    String StringDEPOTValue;
+    String StringDEPOTcap;
+    String StringDEPOTvolume;
+    String StringDEPOTvalueE;
+    String StringDEPOTvalueF;
 
     private ImageButton deleteDepot;
     private DbManager _datenbankManager;
@@ -43,7 +43,7 @@ public class SingleStockOverviewDepot extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
+        Log.i("Information" , "pass");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_stock_overview_after_depot);
 
@@ -59,41 +59,45 @@ public class SingleStockOverviewDepot extends AppCompatActivity {
 
         _datenbankManager = new DbManager(getApplicationContext());
 
-        showStockName= findViewById(R.id.ShowStockName);
+        showStockName= findViewById(R.id.ShowStockNameDepot);
         showStockName.setText(symbol);
 
-        StockName = findViewById(R.id.ShowClearName);
+        StockName = findViewById(R.id.ShowClearNameDepot);
         StockName.setText(name);
-        ISIN = findViewById(R.id.ShowStockName);
-        DEPOTvalue = findViewById(R.id.CurrentStockValue);
-        DEPOTvalue.setText(open);
-        DEPOTmarketcap = findViewById(R.id.MarketCapStringValue);
-        DEPOTmarketcap.setText(marketCap);
-        DEPOTtwentyFour = findViewById(R.id.Change24HoursValue);
-        DEPOTtwentyFour.setText(twentyFour + "%");
 
+        ISIN = findViewById(R.id.ShowStockNameDepot);
+
+        DEPOTvalue = findViewById(R.id.CurrentStockValueDepot);
+        DEPOTvalue.setText(open);
+
+        DEPOTmarketcap = findViewById(R.id.MarketCapStringValueDepot);
+        DEPOTmarketcap.setText(marketCap);
+
+        DEPOTtwentyFour = findViewById(R.id.Change24HoursValueDepot);
+        DEPOTtwentyFour.setText(twentyFour + "%");
         //DEPOTtwentyFour.setTextColor(textColor(twentyFour));
 
-        DEPOTvolume = findViewById(R.id.VolumeValue);
+        DEPOTvolume = findViewById(R.id.VolumeValueDepot);
 
         DEPOTvolume.setText(volume);
-        DEPOThighest = findViewById(R.id.HighestValue);
 
+        DEPOThighest = findViewById(R.id.HighestValueDepot);
         DEPOThighest.setText(highest);
-        DEPOTlowest = findViewById(R.id.LowestValue);
+
+        DEPOTlowest = findViewById(R.id.LowestValueDepot);
         DEPOTlowest.setText(lowest);
-        DEPOTdate = findViewById(R.id.DateValue);
+
+        DEPOTdate = findViewById(R.id.DateValueDepot);
         DEPOTdate.setText(date);
 
         //TODO: Change to Delete from Depot
         deleteDepot = findViewById(R.id.DeleteFromDepot);
-        _datenbankManager.addHistoryElement(name);
 
         deleteDepot.setOnClickListener(v -> {
             _datenbankManager.deleteDepotElement(name);
             finish();
         });
-        Log.i("Information", "Here");
+
         StringDEPOTvalueF = DEPOTlowest.getText().toString();
         StringStockName = StockName.getText().toString();
         StringISIN = ISIN.getText().toString();

@@ -61,7 +61,7 @@ public class DbManager extends SQLiteOpenHelper {
     }
 
     public void deleteHistoryElement(String historyverlauf) {
-        db.execSQL("DELETE FROM history WHERE name = '" + historyverlauf + "'");
+        db.execSQL("DELETE FROM history WHERE historyID IN (SELECT historyID FROM history WHERE name = '" + historyverlauf + "' LIMIT 1)");
     }
 
     public String[] outputStock() throws SQLException {

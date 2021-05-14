@@ -2,6 +2,7 @@ package com.example.dhapp;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,25 +11,25 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SingleStockOverview extends AppCompatActivity {
+
     private TextView showStockName;
+    TextView StockName;
+    TextView ISIN;
+    TextView DEPOTvalue;
+    TextView DEPOTmarketcap;
+    TextView DEPOTtwentyFour;
+    TextView DEPOTvolume;
+    TextView DEPOThighest;
+    TextView DEPOTlowest;
+    TextView DEPOTdate;
 
-    static TextView StockName;
-    static TextView ISIN;
-    static TextView DEPOTvalue;
-    static TextView DEPOTmarketcap;
-    static TextView DEPOTtwentyFour;
-    static TextView DEPOTvolume;
-    static TextView DEPOThighest;
-    static TextView DEPOTlowest;
-    static TextView DEPOTdate;
-
-    static String StringStockName;
-    static String StringISIN;
-    static String StringDEPOTValue;
-    static String StringDEPOTcap;
-    static String StringDEPOTvolume;
-    static String StringDEPOTvalueE;
-    static String StringDEPOTvalueF;
+    String StringStockName;
+    String StringISIN;
+    String StringDEPOTValue;
+    String StringDEPOTcap;
+    String StringDEPOTvolume;
+    String StringDEPOTvalueE;
+    String StringDEPOTvalueF;
 
     private Button addDepot;
     private DbManager _datenbankManager;
@@ -40,7 +41,7 @@ public class SingleStockOverview extends AppCompatActivity {
         setContentView(R.layout.single_stock_overview);
 
         String name = getIntent().getStringExtra("name");
-        String symbol = getIntent().getStringExtra("symbol").toUpperCase().toLowerCase().toUpperCase();
+        String symbol = getIntent().getStringExtra("symbol").toUpperCase();
         String open = getIntent().getStringExtra("open");
         String marketCap = getIntent().getStringExtra("marketCap");
         String twentyFour = getIntent().getStringExtra("twentyFour");
