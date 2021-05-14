@@ -83,7 +83,6 @@ public class MyAdapterDepot extends RecyclerView.Adapter<MyAdapterDepot.MyViewHo
                 public void onClick(View v) {
                     intent = new Intent(v.getContext(), SingleStockOverviewDepot.class);
 
-                    v.getContext().startActivity(intent);
                     try {
                         apiThread thread2 = new apiThread();
                         thread2.start();
