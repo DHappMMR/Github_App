@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,18 +21,7 @@ import java.io.IOException;
 
 public class SearchFragment extends Fragment{
 
-    private String name;
-    private String input;
     private Intent intent;
-    private JSONObject answer;
-    private JSONObject stockName;
-    private String open;
-    private String volume;
-    private String yesterday;
-    private String highest;
-    private String lowest;
-    private String date;
-    private Button confirm;
     private EditText stockInput;
 
 
@@ -48,7 +36,7 @@ public class SearchFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        confirm = (Button) view.findViewById(R.id.ButtonConfirm);
+        Button confirm = (Button) view.findViewById(R.id.ButtonConfirm);
         stockInput =  (EditText) view.findViewById(R.id.stockNameEditView);
         confirm.setOnClickListener(v -> {
             try{
@@ -107,38 +95,38 @@ public class SearchFragment extends Fragment{
         @Override
         public void run(){
             try{
-                input = stockInput.getText().toString();
-                stockName = ((MainActivity)getActivity()).getStockNameInformation(input);
+                String input = stockInput.getText().toString();
+                JSONObject stockName = ((MainActivity) getActivity()).getStockNameInformation(input);
 
-                name = stockName.getString("name");
-                answer = ((MainActivity)getActivity()).getStockInformation(input);
+                String name = stockName.getString("name");
+                JSONObject answer = ((MainActivity) getActivity()).getStockInformation(input);
                 JSONArray field = answer.getJSONArray("data");
                 JSONObject latestData = field.getJSONObject(0);
 
-                open = latestData.getString("open");
+                String open = latestData.getString("open");
                 open = String.format("%.2f", Double.parseDouble(open));
 
-                volume = latestData.getString("volume");
+                String volume = latestData.getString("volume");
                 String marketCapResult = getMarketCap(volume, open);
 
                 JSONObject yesterdayData = field.getJSONObject(1);
-                yesterday = yesterdayData.getString("open");
+                String yesterday = yesterdayData.getString("open");
                 String twentyFourResult = twentyFourChange(open, yesterday);
 
-                volume=getVolume(volume);
+                volume =getVolume(volume);
 
-                highest = latestData.getString("high");
+                String highest = latestData.getString("high");
                 highest = String.format("%.2f", Double.parseDouble(highest));
 
-                lowest = latestData.getString("low");
+                String lowest = latestData.getString("low");
                 lowest = String.format("%.2f", Double.parseDouble(lowest));
 
-                date = latestData.getString("date");
+                String date = latestData.getString("date");
                 date = getDate(date);
 
-                intent.putExtra("name",name);
+                intent.putExtra("name", name);
                 intent.putExtra("symbol",stockInput.getText().toString());
-                intent.putExtra("open",open);
+                intent.putExtra("open", open);
                 intent.putExtra("marketCap",marketCapResult);
                 intent.putExtra("twentyFour",twentyFourResult);
                 intent.putExtra("volume", volume);

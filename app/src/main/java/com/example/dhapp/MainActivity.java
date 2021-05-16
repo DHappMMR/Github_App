@@ -1,7 +1,6 @@
 package com.example.dhapp;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -25,14 +24,12 @@ public class MainActivity extends AppCompatActivity  {
     public TextView showStockName;
     private static String url="http://api.marketstack.com/v1/eod?access_key=86a7719f8f68bb10f9cbef8614745331&symbols=";
     private static String apiURLName;
-    private DbManager _datenbankManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        _datenbankManager = new DbManager(this);
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
@@ -46,34 +43,30 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment selectedFragment = null;
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
+        Fragment selectedFragment = null;
 
-            switch (item.getItemId()) {
-                case R.id.nav_depot:
-                    selectedFragment = new DepotFragment();
-                    break;
-                case R.id.nav_search:
-                    selectedFragment = new SearchFragment();
-                    break;
-                case R.id.nav_impressum:
-                    selectedFragment = new HistoryFragment();
-                    break;
-            }
-
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.nav_depot:
+                selectedFragment = new DepotFragment();
+                break;
+            case R.id.nav_search:
+                selectedFragment = new SearchFragment();
+                break;
+            case R.id.nav_history:
+                selectedFragment = new HistoryFragment();
+                break;
         }
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+        return true;
     };
 
-
     protected JSONObject getStockInformation(String symbol) throws Exception {
-        URL link = null;
-        HttpURLConnection conn = null;
+        URL link;
+        HttpURLConnection conn;
         String object="";
-        JSONObject answer = null;
+        JSONObject answer;
         symbol.toUpperCase();
 
         link = new URL(url+symbol);
@@ -88,7 +81,7 @@ public class MainActivity extends AppCompatActivity  {
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader reader = new BufferedReader(isr);
 
-            String line = "";
+            String line;
             while ((line = reader.readLine())!=null){
                 object += line;
             }
@@ -99,10 +92,10 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     protected JSONObject getStockNameInformation(String ISIN) throws Exception {
-        URL link = null;
-        HttpURLConnection conn = null;
+        URL link;
+        HttpURLConnection conn;
         String object="";
-        JSONObject answer = null;
+        JSONObject answer;
 
         apiURLName = "http://api.marketstack.com/v1/tickers/"+ ISIN + "?access_key=86a7719f8f68bb10f9cbef8614745331";
         link = new URL(apiURLName);
@@ -117,7 +110,7 @@ public class MainActivity extends AppCompatActivity  {
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader reader = new BufferedReader(isr);
 
-            String line = "";
+            String line;
             while ((line = reader.readLine())!=null){
                 object += line;
             }

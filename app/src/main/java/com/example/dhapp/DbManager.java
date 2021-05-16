@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 
 public class DbManager extends SQLiteOpenHelper {
@@ -49,8 +48,8 @@ public class DbManager extends SQLiteOpenHelper {
 
     public void addDepotElement(String elementName, String elementSymbol, String elementOpen, String elementChange){
         db.execSQL("INSERT INTO depot (name, symbol, open, change) VALUES ('" + elementName + "', '" + elementSymbol + "', '" + elementOpen + "', '" + elementChange + "')");
-
     }
+
     //TODO: SQL-Statement nicht erfolgreich, Aufruf scheint aber richtig zu sein
     public void deleteDepotElement(String name){
         db.execSQL("DELETE FROM depot WHERE name = '" + name + "'");
@@ -63,33 +62,6 @@ public class DbManager extends SQLiteOpenHelper {
     public void deleteHistoryElement(String historyverlauf) {
         db.execSQL("DELETE FROM history WHERE historyID IN (SELECT historyID FROM history WHERE name = '" + historyverlauf + "' LIMIT 1)");
     }
-
-    public String[] outputStock() throws SQLException {
-
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT valueID, symb, value " +
-                        " FROM value " +
-                        " ORDER BY valueID ASC",
-                null);
-
-        int resultLines = cursor.getCount();
-        if (resultLines == 0) {
-            return new String[]{};
-        }
-
-        String[] resultStrings = new String[resultLines];
-        int counter = 0;
-        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-
-            resultStrings[counter] = cursor.getString(0);
-            counter++;
-        }
-
-        cursor.close();
-
-        return resultStrings;
-    }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

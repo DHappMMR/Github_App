@@ -2,7 +2,6 @@ package com.example.dhapp;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SingleStockOverview extends AppCompatActivity {
 
-    private TextView showStockName;
     TextView StockName;
     TextView ISIN;
     TextView DEPOTvalue;
@@ -31,7 +29,6 @@ public class SingleStockOverview extends AppCompatActivity {
     String StringDEPOTvalueE;
     String StringDEPOTvalueF;
 
-    private Button addDepot;
     private DbManager _datenbankManager;
 
 
@@ -52,7 +49,7 @@ public class SingleStockOverview extends AppCompatActivity {
 
         _datenbankManager = new DbManager(getApplicationContext());
 
-        showStockName= findViewById(R.id.ShowStockName);
+        TextView showStockName = findViewById(R.id.ShowStockName);
         showStockName.setText(symbol);
 
         StockName = findViewById(R.id.ShowClearName);
@@ -75,7 +72,7 @@ public class SingleStockOverview extends AppCompatActivity {
         DEPOTdate.setText(date);
 
 
-        addDepot = findViewById(R.id.addToDepot);
+        Button addDepot = findViewById(R.id.addToDepot);
         _datenbankManager.addHistoryElement(name);
         addDepot.setOnClickListener(v -> {
             _datenbankManager.addDepotElement(name, symbol, open, twentyFour);

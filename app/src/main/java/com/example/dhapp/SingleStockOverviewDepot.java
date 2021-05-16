@@ -1,24 +1,16 @@
 package com.example.dhapp;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import static java.security.AccessController.getContext;
-
 public class SingleStockOverviewDepot extends AppCompatActivity {
 
-    private TextView showStockName;
     TextView StockName;
     TextView ISIN;
     TextView DEPOTvalue;
@@ -37,13 +29,10 @@ public class SingleStockOverviewDepot extends AppCompatActivity {
     String StringDEPOTvalueE;
     String StringDEPOTvalueF;
 
-    private ImageButton deleteDepot;
     private DbManager _datenbankManager;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.i("Information" , "pass");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_stock_overview_after_depot);
 
@@ -59,7 +48,7 @@ public class SingleStockOverviewDepot extends AppCompatActivity {
 
         _datenbankManager = new DbManager(getApplicationContext());
 
-        showStockName= findViewById(R.id.ShowStockNameDepot);
+        TextView showStockName = findViewById(R.id.ShowStockNameDepot);
         showStockName.setText(symbol);
 
         StockName = findViewById(R.id.ShowClearNameDepot);
@@ -75,7 +64,7 @@ public class SingleStockOverviewDepot extends AppCompatActivity {
 
         DEPOTtwentyFour = findViewById(R.id.Change24HoursValueDepot);
         DEPOTtwentyFour.setText(twentyFour + "%");
-        //DEPOTtwentyFour.setTextColor(textColor(twentyFour));
+        DEPOTtwentyFour.setTextColor(textColor(twentyFour));
 
         DEPOTvolume = findViewById(R.id.VolumeValueDepot);
 
@@ -91,7 +80,7 @@ public class SingleStockOverviewDepot extends AppCompatActivity {
         DEPOTdate.setText(date);
 
         //TODO: Change to Delete from Depot
-        deleteDepot = findViewById(R.id.DeleteFromDepot);
+        ImageButton deleteDepot = findViewById(R.id.DeleteFromDepot);
 
         deleteDepot.setOnClickListener(v -> {
             _datenbankManager.deleteDepotElement(name);

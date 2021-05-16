@@ -4,6 +4,32 @@
     <string name="aktiensuche">Aktiensuche</string>
     <string name="confirm">Confirm</string>
     <string name="todo">TODO</string>
+    <string name="depot">Depot</string>
+    <string name="history">History</string>
+    <string name="click_on_stock_to_delete_it_from_history">Click on Stock to delete it from history</string>
+    <string name="the_connection_failed_n_please_check_your_internet_connection_and_try_again">The connection failed. \n Please check your internet connection and try again.</string>
+    <string name="wifi_not_working_image">Wifi not working-Image</string>
+    <string name="go_back">Go back</string>
+    <string name="search_stock">Search Stock</string>
+    <string name="no_stock_connected_to_this_symbol_image">No stock connected to this symbol-Image</string>
+    <string name="there_is_no_stock_connected_to_this_symbol_n_please_try_again">There is no Stock connected to this symbol. \n Please try again.</string>
+    <string name="no_wifi_connection_image">No Wifi Connection-Image</string>
+    <string name="the_connection_failed_n_please_check_your_internet_connection_and_try_again2">The connection failed. \n Please check your internet connection and try again.</string>
+    <string name="try_again">Try Again</string>
+    <string name="error">error</string>
+    <string name="stock_name">Stock Name</string>
+    <string name="stock_isin">Stock ISIN</string>
+    <string name="current_stock_value">Current Stock Value</string>
+    <string name="market_capitalization">Market Capitalization</string>
+    <string name="change_24_hours">Change 24 hours</string>
+    <string name="volume">Volume</string>
+    <string name="highest_value">Highest Value</string>
+    <string name="lowest_value">Lowest Value</string>
+    <string name="date">Date</string>
+    <string name="back">Back</string>
+    <string name="plus">+</string>
+    <string name="line">|</string>
+    <string name="delete_from_depot_image">Delete from Depot-Image</string>
 
     <string-array name="AktienName">
         <item>Siemens</item>
