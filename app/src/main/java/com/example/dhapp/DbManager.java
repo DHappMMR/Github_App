@@ -5,20 +5,18 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 
 public class DbManager extends SQLiteOpenHelper {
 
     static SQLiteDatabase db;
 
-
     public DbManager(Context context) {
         super(context,
                 "stockDB.db",
                 null,
                 1);
-        db=getWritableDatabase();
+        db = getWritableDatabase();
     }
 
     @Override
@@ -44,12 +42,18 @@ public class DbManager extends SQLiteOpenHelper {
             db.execSQL("CREATE INDEX history_index ON history(name)");
 
 
-        } catch (SQLException e) { e.printStackTrace();}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void addDepotElement(String elementName, String elementSymbol, String elementOpen, String elementChange){
+    public void addDepotElement(String elementName, String elementSymbol, String elementOpen, String elementChange) {
         db.execSQL("INSERT INTO depot (name, symbol, open, change) VALUES ('" + elementName + "', '" + elementSymbol + "', '" + elementOpen + "', '" + elementChange + "')");
+    }
 
+    //TODO: SQL-Statement nicht erfolgreich, Aufruf scheint aber richtig zu sein
+    public void deleteDepotElement(String name) {
+        db.execSQL("DELETE FROM depot WHERE name = '" + name + "'");
     }
 
     public void addHistoryElement(String historyName) {
@@ -57,35 +61,8 @@ public class DbManager extends SQLiteOpenHelper {
     }
 
     public void deleteHistoryElement(String historyverlauf) {
-        db.execSQL("DELETE FROM history WHERE name = '" + historyverlauf + "'");
+        db.execSQL("DELETE FROM history WHERE historyID IN (SELECT historyID FROM history WHERE name = '" + historyverlauf + "' LIMIT 1)");
     }
-
-    public String[] outputStock() throws SQLException {
-
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT valueID, symb, value " +
-                        " FROM value " +
-                        " ORDER BY valueID ASC",
-                null);
-
-        int resultLines = cursor.getCount();
-        if (resultLines == 0) {
-            return new String[]{};
-        }
-
-        String[] resultStrings = new String[resultLines];
-        int counter = 0;
-        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-
-            resultStrings[counter] = cursor.getString(0);
-            counter++;
-        }
-
-        cursor.close();
-
-        return resultStrings;
-    }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -94,9 +71,9 @@ public class DbManager extends SQLiteOpenHelper {
 
     public String[] getElements(String ColumnName, String TableName) {
         db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT "+ ColumnName + " FROM " + TableName, null);
-        if (TableName.equals("depot")){
-            cursor = db.rawQuery("SELECT DISTINCT "+ ColumnName + " FROM " + TableName, null);
+        Cursor cursor = db.rawQuery("SELECT " + ColumnName + " FROM " + TableName, null);
+        if (TableName.equals("depot")) {
+            cursor = db.rawQuery("SELECT DISTINCT " + ColumnName + " FROM " + TableName, null);
         }
         int amountResultRows = cursor.getCount();
         if (amountResultRows == 0) {

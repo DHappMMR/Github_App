@@ -23,7 +23,7 @@
                 android:id="@+id/historyName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="error"
+                android:text="@string/error"
                 android:textColor="#2196F3"
                 android:textSize="24sp"
                 android:clickable="true"

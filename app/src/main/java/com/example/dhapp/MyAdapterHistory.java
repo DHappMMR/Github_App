@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyAdapterHistory extends RecyclerView.Adapter<MyAdapterHistory.MyViewHolder> {
 
-    String data1[];
+    String[] data1;
     Context context;
 
-    public MyAdapterHistory(Context ct, String stockName[]) {
+    public MyAdapterHistory(Context ct, String[] stockName) {
         context = ct;
         data1 = stockName;
     }
@@ -25,7 +25,7 @@ public class MyAdapterHistory extends RecyclerView.Adapter<MyAdapterHistory.MyVi
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.my_history_row, parent, false);
+        View view = inflater.inflate(R.layout.row_history, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -48,14 +48,11 @@ public class MyAdapterHistory extends RecyclerView.Adapter<MyAdapterHistory.MyVi
             super(itemView);
             stockNameView = itemView.findViewById(R.id.historyName);
             dbm = new DbManager(context.getApplicationContext());
-            stockNameView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dbm.deleteHistoryElement(stockNameView.getText().toString());
-                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                    Fragment newFragment = new HistoryFragment();
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, newFragment).addToBackStack(null).commit();
-                }
+            stockNameView.setOnClickListener(v -> {
+                dbm.deleteHistoryElement(stockNameView.getText().toString());
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                Fragment newFragment = new HistoryFragment();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, newFragment).addToBackStack(null).commit();
             });
         }
     }

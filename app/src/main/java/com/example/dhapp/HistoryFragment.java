@@ -1,11 +1,9 @@
 package com.example.dhapp;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,7 +49,9 @@ public class HistoryFragment extends Fragment {
             recyclerView.setAdapter(myAdapterHistory);
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
