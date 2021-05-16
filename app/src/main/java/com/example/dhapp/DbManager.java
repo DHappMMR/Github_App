@@ -11,13 +11,12 @@ public class DbManager extends SQLiteOpenHelper {
 
     static SQLiteDatabase db;
 
-
     public DbManager(Context context) {
         super(context,
                 "stockDB.db",
                 null,
                 1);
-        db=getWritableDatabase();
+        db = getWritableDatabase();
     }
 
     @Override
@@ -43,15 +42,17 @@ public class DbManager extends SQLiteOpenHelper {
             db.execSQL("CREATE INDEX history_index ON history(name)");
 
 
-        } catch (SQLException e) { e.printStackTrace();}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void addDepotElement(String elementName, String elementSymbol, String elementOpen, String elementChange){
+    public void addDepotElement(String elementName, String elementSymbol, String elementOpen, String elementChange) {
         db.execSQL("INSERT INTO depot (name, symbol, open, change) VALUES ('" + elementName + "', '" + elementSymbol + "', '" + elementOpen + "', '" + elementChange + "')");
     }
 
     //TODO: SQL-Statement nicht erfolgreich, Aufruf scheint aber richtig zu sein
-    public void deleteDepotElement(String name){
+    public void deleteDepotElement(String name) {
         db.execSQL("DELETE FROM depot WHERE name = '" + name + "'");
     }
 
@@ -70,9 +71,9 @@ public class DbManager extends SQLiteOpenHelper {
 
     public String[] getElements(String ColumnName, String TableName) {
         db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT "+ ColumnName + " FROM " + TableName, null);
-        if (TableName.equals("depot")){
-            cursor = db.rawQuery("SELECT DISTINCT "+ ColumnName + " FROM " + TableName, null);
+        Cursor cursor = db.rawQuery("SELECT " + ColumnName + " FROM " + TableName, null);
+        if (TableName.equals("depot")) {
+            cursor = db.rawQuery("SELECT DISTINCT " + ColumnName + " FROM " + TableName, null);
         }
         int amountResultRows = cursor.getCount();
         if (amountResultRows == 0) {

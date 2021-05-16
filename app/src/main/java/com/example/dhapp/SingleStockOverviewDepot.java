@@ -96,17 +96,15 @@ public class SingleStockOverviewDepot extends AppCompatActivity {
         StringDEPOTvalueE = DEPOThighest.getText().toString();
     }
 
-
     public void goBack(View view) {
         finish();
     }
 
-
-    public int textColor(String value){
+    public int textColor(String value) {
         Double textValue = Double.parseDouble(value);
         if (textValue > 0) {
             return Color.GREEN;
-        } else if(textValue==0){
+        } else if (textValue == 0) {
             return Color.BLACK;
         } else {
             return Color.RED;

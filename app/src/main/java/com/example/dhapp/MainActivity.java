@@ -1,10 +1,8 @@
 package com.example.dhapp;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -18,12 +16,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
 
     public TextView showStockName;
-    private static String url="http://api.marketstack.com/v1/eod?access_key=86a7719f8f68bb10f9cbef8614745331&symbols=";
-    private static String apiURLName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,27 +61,28 @@ public class MainActivity extends AppCompatActivity  {
     protected JSONObject getStockInformation(String symbol) throws Exception {
         URL link;
         HttpURLConnection conn;
-        String object="";
+        String object = "";
         JSONObject answer;
         symbol.toUpperCase();
 
-        link = new URL(url+symbol);
+        String url = "http://api.marketstack.com/v1/eod?access_key=86a7719f8f68bb10f9cbef8614745331&symbols=";
+        link = new URL(url + symbol);
         conn = (HttpURLConnection) link.openConnection();
         conn.setRequestMethod("GET");
 
         if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
             String errorMessage = "HTTP-Fehler: " + conn.getResponseMessage();
             throw new Exception(errorMessage);
-        } else{
+        } else {
             InputStream is = conn.getInputStream();
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader reader = new BufferedReader(isr);
 
             String line;
-            while ((line = reader.readLine())!=null){
+            while ((line = reader.readLine()) != null) {
                 object += line;
             }
-            answer=parseJSON(object);
+            answer = parseJSON(object);
         }
         conn.disconnect();
         return answer;
@@ -94,10 +91,10 @@ public class MainActivity extends AppCompatActivity  {
     protected JSONObject getStockNameInformation(String ISIN) throws Exception {
         URL link;
         HttpURLConnection conn;
-        String object="";
+        String object = "";
         JSONObject answer;
 
-        apiURLName = "http://api.marketstack.com/v1/tickers/"+ ISIN + "?access_key=86a7719f8f68bb10f9cbef8614745331";
+        String apiURLName = "http://api.marketstack.com/v1/tickers/" + ISIN + "?access_key=86a7719f8f68bb10f9cbef8614745331";
         link = new URL(apiURLName);
         conn = (HttpURLConnection) link.openConnection();
         conn.setRequestMethod("GET");
@@ -105,22 +102,22 @@ public class MainActivity extends AppCompatActivity  {
         if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
             String errorMessage = "HTTP-Fehler: " + conn.getResponseMessage();
             throw new Exception(errorMessage);
-        } else{
+        } else {
             InputStream is = conn.getInputStream();
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader reader = new BufferedReader(isr);
 
             String line;
-            while ((line = reader.readLine())!=null){
+            while ((line = reader.readLine()) != null) {
                 object += line;
             }
-            answer=parseJSON(object);
+            answer = parseJSON(object);
         }
         conn.disconnect();
         return answer;
     }
 
-    protected JSONObject parseJSON (String json) throws Exception{
+    protected JSONObject parseJSON(String json) throws Exception {
         JSONObject jsonObject = new JSONObject(json);
         return jsonObject;
     }

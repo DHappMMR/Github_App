@@ -71,15 +71,12 @@ public class SingleStockOverview extends AppCompatActivity {
         DEPOTdate = findViewById(R.id.DateValue);
         DEPOTdate.setText(date);
 
-
         Button addDepot = findViewById(R.id.addToDepot);
         _datenbankManager.addHistoryElement(name);
         addDepot.setOnClickListener(v -> {
             _datenbankManager.addDepotElement(name, symbol, open, twentyFour);
             finish();
         });
-
-
 
         StringDEPOTvalueF = DEPOTlowest.getText().toString();
         StringStockName = StockName.getText().toString();
@@ -94,12 +91,11 @@ public class SingleStockOverview extends AppCompatActivity {
         finish();
     }
 
-
-    public int textColor(String value){
+    public int textColor(String value) {
         Double textValue = Double.parseDouble(value);
         if (textValue > 0) {
             return Color.GREEN;
-        } else if(textValue==0){
+        } else if (textValue == 0) {
             return Color.BLACK;
         } else {
             return Color.RED;

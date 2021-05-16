@@ -49,7 +49,9 @@ public class HistoryFragment extends Fragment {
             recyclerView.setAdapter(myAdapterHistory);
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

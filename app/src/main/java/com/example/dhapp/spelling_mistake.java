@@ -16,7 +16,6 @@ public class spelling_mistake extends Fragment {
     public spelling_mistake() {
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
